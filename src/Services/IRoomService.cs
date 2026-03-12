@@ -7,6 +7,8 @@ namespace HogwartsHouses.Services
     {
         public IEnumerable<Room> GetRooms();
 
-        public IEnumerable<Room> CreateRoom(int id, string name, string house);
+        public Room? GetById(int id);
+
+        public IEnumerable<Room> Add(int id, string name, string house);
     }
 }

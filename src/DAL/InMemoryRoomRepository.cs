@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq; 
 using HogwartsHouses.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HogwartsHouses.DAL
 {
@@ -29,12 +31,21 @@ namespace HogwartsHouses.DAL
         {
             return _rooms;
         }
+        
+        public Room? GetById(int id)
+        {
 
-        public IEnumerable<Room> CreateRoom(int id, string name, string house)
+            if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id), "ID must be positive.");
+            return _rooms.FirstOrDefault(r => r.Id == id);
+        }
+
+        public IEnumerable<Room> Add(int id, string name, string house)
         {
             var newRoom = new Room { Id = id, Name = name, House = house };
             _rooms.Add(newRoom);
             return _rooms;
-        } 
+        }
+
+
     }
 }
