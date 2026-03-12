@@ -19,4 +19,10 @@ public class RoomsController : ControllerBase
     {
         return Ok(_service.GetRooms());
     }
+
+    [HttpPost]
+    public IActionResult CreateRoom(int id, string name, string house)
+    {
+        return Ok(_service.CreateRoom(id, name, house));
+    }
 }

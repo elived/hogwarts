@@ -17,5 +17,10 @@ namespace HogwartsHouses.Services
         {
             return _repository.GetAll();
         }
+
+        public IEnumerable<Room> CreateRoom(int id, string name, string house)
+        {
+            return _repository.CreateRoom(id, name, house);
+        }
     }
 }
