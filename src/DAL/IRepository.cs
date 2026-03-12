@@ -8,7 +8,7 @@ namespace HogwartsHouses.DAL
         T? GetById(int id);
 
         IEnumerable<T> Add(int id, string name, string house);
-
+        T? Update(int id, string name, string house);
         T? Delete(int id);
     }
 }

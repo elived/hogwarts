@@ -28,6 +28,11 @@ namespace HogwartsHouses.Services
             return _repository.Add(id, name, house);
         }
 
+        public Room? Update(int id, string name, string house)
+        {
+            return _repository.Update(id, name, house);
+        }
+
         public Room? Delete(int id)
         {
             return _repository.Delete(id);

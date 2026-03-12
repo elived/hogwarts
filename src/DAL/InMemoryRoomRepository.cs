@@ -46,6 +46,20 @@ namespace HogwartsHouses.DAL
             return _rooms;
         }
 
+        public Room? Update(int id, string name, string house)
+        {
+            if (id <= 0) throw new ArgumentException("ID must be positive", nameof(id));
+            
+            var updateRoom = _rooms.FirstOrDefault(r => r.Id == id);
+            if (updateRoom == null) return null;
+            _rooms.Remove(updateRoom);
+            
+            updateRoom = new Room { Id = id, Name = name, House = house };
+
+            _rooms.Add(updateRoom);
+            return updateRoom;
+        }
+
         public Room? Delete(int id)
         {
             if (id <= 0) throw new ArgumentNullException(nameof(id), "ID must be positive.");
