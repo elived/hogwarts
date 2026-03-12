@@ -10,5 +10,7 @@ namespace HogwartsHouses.Services
         public Room? GetById(int id);
 
         public IEnumerable<Room> Add(int id, string name, string house);
+
+        public Room? Delete(int id);
     }
 }

@@ -46,6 +46,18 @@ namespace HogwartsHouses.DAL
             return _rooms;
         }
 
+        public Room? Delete(int id)
+        {
+            if (id <= 0) throw new ArgumentNullException(nameof(id), "ID must be positive.");
+            var removed = _rooms.FirstOrDefault(r => r.Id == id);
+            if (removed == null)
+            {
+                return null;
 
+            }
+
+            _rooms.Remove(removed);
+            return removed;
+        }
     }
 }

@@ -31,4 +31,10 @@ public class RoomsController : ControllerBase
     {
         return Ok(_service.Add(id, name, house));
     }
+
+    [HttpDelete("{id:int}")]
+    public IActionResult Delete(int id)
+    {
+        return Ok(_service.Delete(id));
+    }
 }
