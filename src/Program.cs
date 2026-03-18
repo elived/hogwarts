@@ -26,6 +26,9 @@ namespace HogwartsHouses
             builder.Services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
             builder.Services.AddScoped<IRoomService, RoomService>();
 
+            builder.Services.AddSingleton<IStudentRepository<Student>, StudentRepository>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
+
             var app = builder.Build();
             
             
