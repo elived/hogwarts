@@ -21,10 +21,10 @@ namespace HogwartsHouses.DAL
         {
             _rooms = new HashSet<Room>
             {
-                new Room { Id = 1, Name = "Bedroom 1", House = HouseType.Gryffindor, maxCapacity = 4},
-                new Room { Id = 2, Name = "Bedroom 2", House = HouseType.Gryffindor, maxCapacity = 2},
-                new Room { Id = 4, Name = "Bedroom 1", House = HouseType.Slytherin, maxCapacity = 4},
-                new Room { Id = 5, Name = "Bedroom 2", House = HouseType.Slytherin, maxCapacity = 2},
+                new Room { Id = 1, Name = "Bedroom 1", House = HouseType.Gryffindor, MaxCapacity = 4},
+                new Room { Id = 2, Name = "Bedroom 2", House = HouseType.Gryffindor, MaxCapacity = 2},
+                new Room { Id = 4, Name = "Bedroom 1", House = HouseType.Slytherin, MaxCapacity = 4},
+                new Room { Id = 5, Name = "Bedroom 2", House = HouseType.Slytherin, MaxCapacity = 2},
                
             };
         }
@@ -41,14 +41,14 @@ namespace HogwartsHouses.DAL
             return _rooms.FirstOrDefault(r => r.Id == id);
         }
 
-        public IEnumerable<Room> Add(int id, string name, HouseType house)
+        public IEnumerable<Room> Add(int id, string name, HouseType house, int Maxcapacity)
         {
-            var newRoom = new Room { Id = id, Name = name, House = house };
+            var newRoom = new Room { Id = id, Name = name, House = house, MaxCapacity = Maxcapacity};
             _rooms.Add(newRoom);
             return _rooms;
         }
 
-        public Room? Update(int id, string name, HouseType house)
+        public Room? Update(int id, string name, HouseType house, int maxCapacity)
         {
             if (id <= 0) throw new ArgumentException("ID must be positive", nameof(id));
             
@@ -56,7 +56,7 @@ namespace HogwartsHouses.DAL
             if (updateRoom == null) return null;
             _rooms.Remove(updateRoom);
             
-            updateRoom = new Room { Id = id, Name = name, House = house };
+            updateRoom = new Room { Id = id, Name = name, House = house, MaxCapacity = maxCapacity };
 
             _rooms.Add(updateRoom);
             return updateRoom;
@@ -78,7 +78,7 @@ namespace HogwartsHouses.DAL
 
         public IEnumerable<Room> GetAvailableRooms()
         {
-            return _rooms.Where(r => r.Students.Count < r.maxCapacity);
+            return _rooms.Where(r => r.Students.Count < r.MaxCapacity);
         }
 
         public IEnumerable<Room> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false)
@@ -91,7 +91,7 @@ namespace HogwartsHouses.DAL
             }
             
             if (onlyWithFreeSpace)
-                safe = safe.Where(r => r.Students.Count < r.maxCapacity);
+                safe = safe.Where(r => r.Students.Count < r.MaxCapacity);
 
             return safe;
         }

@@ -8,8 +8,8 @@ namespace HogwartsHouses.DAL
         IEnumerable<T> GetAll();
         T? GetById(int id);
 
-        IEnumerable<T> Add(int id, string name, HouseType house);
-        T? Update(int id, string name, HouseType house);
+        IEnumerable<T> Add(int id, string name, HouseType house, int maxcapacity);
+        T? Update(int id, string name, HouseType house, int maxcapacity);
         T? Delete(int id);
         IEnumerable<T> GetAvailableRooms();
         IEnumerable<T> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false);

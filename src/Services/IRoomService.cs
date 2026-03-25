@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
 
@@ -6,17 +7,17 @@ namespace HogwartsHouses.Services
 {
     public interface IRoomService
     {
-        public IEnumerable<Room> GetRooms();
+        Task<IEnumerable<Room>> GetRooms();
 
-        public Room? GetById(int id);
+        Task <Room?> GetById(int id);
 
-        public IEnumerable<Room> Add(int id, string name, HouseType house);
+        Task <IEnumerable<Room>> Add(int id, string name, HouseType house, int maxCapacity);
 
-        public Room? Update(int id, string name, HouseType house);
+        Task <Room?> Update(int id, string name, HouseType house, int maxCapacity);
 
-        public Room? Delete(int id);
-        public IEnumerable<Room> GetAvailableRooms();
+        Task <Room?> Delete(int id);
+        Task <IEnumerable<Room>> GetAvailableRooms();
 
-        public IEnumerable<Room> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false);
+        Task <IEnumerable<Room>> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false);
     }
 }

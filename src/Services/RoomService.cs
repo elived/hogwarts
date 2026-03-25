@@ -1,62 +1,104 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using HogwartsHouses.DAL;
+using HogwartsHouses.Data;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
+using Microsoft.EntityFrameworkCore;
 
 namespace HogwartsHouses.Services
 {
     public class RoomService : IRoomService
     {
-        private IRepository<Room> _repository { get; }
+        private readonly AppDbContext _db;
+        // private IRepository<Room> _repository { get; }
 
-        public RoomService(IRepository<Room> repository)
+        public RoomService(AppDbContext db)
         {
-            _repository = repository;
+            _db = db;
         }
 
-        public IEnumerable<Room> GetRooms()
+        public async Task<IEnumerable<Room>> GetRooms()
         {
-            return _repository.GetAll();
+            return await _db.Rooms
+            .Include(r => r.Students)
+            .ToListAsync();
         }
 
-        public Room? GetById(int id)
+        public async Task<Room?> GetById(int id)
         {
-            return _repository.GetById(id);
+            return await _db.Rooms
+                .Include(r => r.Students)
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public IEnumerable<Room> Add(int id, string name, HouseType house)
+        public async Task<IEnumerable<Room>> Add(int id, string name, HouseType house, int maxCapacity)
         {
-            return _repository.Add(id, name, house);
-        }
-
-        public Room? Update(int id, string name, HouseType house)
-        {
-            return _repository.Update(id, name, house);
-        }
-
-        public Room? Delete(int id)
-        {
-            return _repository.Delete(id);
-        }
-
-        public IEnumerable<Room> GetAvailableRooms()
-        {
-            return _repository.GetAvailableRooms();
-        }
-
-        public IEnumerable<Room> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false)
-        {
-            if (_repository is InMemoryRoomRepository concrete)
-                return concrete.GetRatSafeRooms(house, onlyWithFreeSpace);
+            bool idExists = await _db.Rooms.AnyAsync(r => r.Id == id);
+            if (idExists) throw new InvalidOperationException($"A room with {id} already exists.");
             
-            var all = _repository.GetAll();
-            var safe = all.Where(r => r.Students.All(s => s.Pet != PetType.Cat && s.Pet != PetType.Owl));
+            var room = new Room
+            {
+                Id = id,
+                Name = name,
+                House = house,
+                MaxCapacity = maxCapacity
+            };
+            _db.Rooms.Add(room);
+            await _db.SaveChangesAsync();
+            
+            
+            return await _db.Rooms
+                .Include(r => r.Students)
+                .ToListAsync();
 
-            if (house.HasValue) safe = safe.Where(r => r.House == house.Value);
-            if (onlyWithFreeSpace) safe = safe.Where(r => r.Students.Count < r.maxCapacity);
+        }
 
-            return safe;
+        public async Task<Room?> Update(int id, string name, HouseType house, int maxCapacity)
+        {
+            var room = await _db.Rooms.FindAsync(id);
+            if (room == null) return null;
+
+            room.Name = name;
+            room.House = house;
+            
+            await _db.SaveChangesAsync();
+            return room;
+        }
+
+        public async Task<Room?> Delete(int id)
+        {
+            var room = await _db.Rooms.FindAsync(id);
+            if (room == null) return null;
+
+            _db.Rooms.Remove(room);
+            await _db.SaveChangesAsync();
+            return room;
+        }
+
+        public async Task<IEnumerable<Room>> GetAvailableRooms()
+        {
+            return await _db.Rooms
+                .Include(r => r.Students)
+                .Where(r => r.Students.Count < r.MaxCapacity)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Room>> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false)
+        {
+            var query = _db.Rooms
+                .Include(r => r.Students)
+                .Where(r => r.Students.All(s => s.Pet != PetType.Cat && s.Pet != PetType.Owl));
+
+            if (house != null)
+                query = query.Where(r => r.House == house);
+            
+            if (onlyWithFreeSpace)
+                query = query.Where(r => r.Students.Count < r.MaxCapacity);
+
+            return await query.ToListAsync();
         }
     }
 }

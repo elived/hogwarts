@@ -93,8 +93,8 @@ public class StudentRepository : IStudentRepository<Student>
         if (student.House != room.House)
             throw new InvalidOperationException($"House mismatch: {student.House} cannot be assigned to {room.House} room.");
 
-        if (room.Students.Count >= room.maxCapacity)
-            throw new InvalidOperationException($"Room {room.Id} is full (capacity {room.maxCapacity}).");
+        if (room.Students.Count >= room.MaxCapacity)
+            throw new InvalidOperationException($"Room {room.Id} is full (capacity {room.MaxCapacity}).");
 
         // Remove from previous room if necessary
         if (student.Room != null && student.Room.Id != room.Id)

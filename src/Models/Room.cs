@@ -6,10 +6,10 @@ namespace HogwartsHouses.Models
     [System.Serializable]
     public class Room
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public HouseType House { get; set; }
-        public int maxCapacity { get; set; }
+        public required int Id { get; set; }
+        public required string Name { get; set; }
+        public required HouseType House { get; set; }
+        public required int MaxCapacity { get; set; }
         
         public List<Student> Students { get; set; } = new();
     }
