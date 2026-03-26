@@ -1,4 +1,5 @@
-﻿using HogwartsHouses.Models.Types;
+﻿using System.Threading.Tasks;
+using HogwartsHouses.Models.Types;
 using HogwartsHouses.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -17,38 +18,48 @@ public class StudentController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllStudents()
+    public async Task<IActionResult> GetAllStudents()
     {
-        return Ok(_service.GetAllStudents());
+        var students = await _service.GetAllStudents();
+        return Ok(students);
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetStudentById(int id)
+    public async Task<IActionResult> GetStudentById(int id)
     {
-        return Ok(_service.GetStudentById(id));
+        var student = await _service.GetStudentById(id);
+        if (student == null) return NotFound($"Student {id} is not found");
+        
+        return Ok(student);
     }
 
     [HttpPost]
-    public IActionResult AddStudent(int id, string name, HouseType house, PetType pet)
+    public async Task<IActionResult> AddStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
-        return Ok(_service.AddStudent(id, name, house, pet));
+        var result = await _service.AddStudent(id, name, house, pet, roomId);
+        return Ok(result);
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult UpdateStudent(int id, string name, HouseType house, PetType pet)
+    public async Task<IActionResult> UpdateStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
-        return Ok(_service.UpdateStudent(id, name, house, pet));
+        var updated = await _service.UpdateStudent(id, name, house, pet, roomId);
+        if (updated == null) return NotFound($"Student {id} is not found");
+        return Ok(updated);
     }
 
     [HttpDelete("{id:int}")]
-    public IActionResult RemoveStudent(int id)
+    public async Task<IActionResult> RemoveStudent(int id)
     {
-        return Ok(_service.RemoveStudent(id));
+        var removed = await _service.RemoveStudent(id);
+        if (removed == null) return NotFound($"Student {id} is not found");
+        return Ok(removed);
     }
 
-    [HttpPut("{id:int}/enforce-house-match")]
-    public IActionResult AssignStudentToRoom(int studentId, int roomId)
+    [HttpPut("{id:int}/assign-new-room")]
+    public async Task<IActionResult> AssignStudentToRoom(int studentId, int roomId)
     {
-        return Ok(_service.AssignStudentToRoom(studentId, roomId));
+        var newRoom = _service.AssignStudentToRoom(studentId, roomId);
+        return Ok(newRoom);
     }
 }

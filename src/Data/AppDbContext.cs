@@ -63,8 +63,51 @@ public class AppDbContext : IdentityDbContext<Users>
                 Name = "Bedroom 2",
                 House = HouseType.Slytherin,
                 MaxCapacity = 2
+            },
+            
+        new Room
+        {
+            Id = 6,
+            Name = "Raven Tower Room 1",
+            House = HouseType.Ravenclaw,
+            MaxCapacity = 4
+        },
+        new Room
+        {
+            Id = 7,
+            Name = "Raven Tower Room 2",
+            House = HouseType.Ravenclaw,
+            MaxCapacity = 2
+        },
+
+        // ✅ Hufflepuff
+        new Room
+        {
+            Id = 8,
+            Name = "Badger Den Room 1",
+            House = HouseType.Hufflepuff,
+            MaxCapacity = 4
+        },
+        new Room
+            {
+                Id = 9,
+                Name = "Badger Den Room 2",
+                House = HouseType.Hufflepuff,
+                MaxCapacity = 2
             }
         );
 
+        modelBuilder.Entity<Student>().HasData(
+            new Student { Id = 1, Name = "Hermione", House = HouseType.Gryffindor, Pet = PetType.Cat, RoomId = 1},
+            new Student { Id = 2, Name = "Draco", House = HouseType.Slytherin, Pet = PetType.None, RoomId = 4 },
+            new Student { Id = 3, Name = "Ron Weasley", House = HouseType.Gryffindor, Pet = PetType.Rat, RoomId = 1},
+            new Student { Id = 4, Name = "Neville Longbottom", House = HouseType.Gryffindor, Pet = PetType.Rat, RoomId = 1 },
+            new Student { Id = 5, Name = "Harry Potter", House = HouseType.Gryffindor, Pet = PetType.Owl, RoomId = 1},
+            new Student { Id = 6, Name = "Luna Lovegood", House = HouseType.Ravenclaw, Pet = PetType.Cat, RoomId = 6},
+            new Student { Id = 7, Name = "Cho Chang", House = HouseType.Ravenclaw, Pet = PetType.None, RoomId = 6},
+            new Student { Id = 8, Name = "Pansy Parkinson", House = HouseType.Slytherin, Pet = PetType.None, RoomId = 5},
+            new Student { Id = 9, Name = "Cedric Diggory", House = HouseType.Hufflepuff, Pet = PetType.None, RoomId = 8},
+            new Student { Id = 10, Name = "Ernie Macmillan", House = HouseType.Hufflepuff, Pet = PetType.None, RoomId = 8}
+        );
     }
 }

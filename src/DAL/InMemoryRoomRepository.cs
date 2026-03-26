@@ -11,23 +11,6 @@ namespace HogwartsHouses.DAL
     public class InMemoryRoomRepository : IRepository<Room>
     {
         private HashSet<Room> _rooms;
-
-        public InMemoryRoomRepository()
-        {
-            SeedRooms();
-        }
-
-        private void SeedRooms()
-        {
-            _rooms = new HashSet<Room>
-            {
-                new Room { Id = 1, Name = "Bedroom 1", House = HouseType.Gryffindor, MaxCapacity = 4},
-                new Room { Id = 2, Name = "Bedroom 2", House = HouseType.Gryffindor, MaxCapacity = 2},
-                new Room { Id = 4, Name = "Bedroom 1", House = HouseType.Slytherin, MaxCapacity = 4},
-                new Room { Id = 5, Name = "Bedroom 2", House = HouseType.Slytherin, MaxCapacity = 2},
-               
-            };
-        }
         
         public IEnumerable<Room> GetAll()
         {

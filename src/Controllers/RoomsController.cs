@@ -14,15 +14,12 @@ public class RoomsController : ControllerBase
 {
     private readonly IRoomService _service;
     private readonly IStudentService _studentService;
-    private readonly AppDbContext _db;
-    private readonly  ILogger<RoomsController> _logger;
 
-    public RoomsController(IRoomService service, IStudentService studentService, ILogger<RoomsController> logger, AppDbContext db)
+
+    public RoomsController(IRoomService service, IStudentService studentService)
     {
         _service = service;
         _studentService = studentService;
-        _logger = logger;
-        _db = db;
     }
 
     [HttpGet]
@@ -79,7 +76,7 @@ public class RoomsController : ControllerBase
     {
         if (studentId.HasValue)
         {
-            var student =  _studentService.GetStudentById(studentId.Value);
+            var student = await _studentService.GetStudentById(studentId.Value);
             if (student is null) return NotFound($"Student {studentId} not found");
             house = student.House;
         }

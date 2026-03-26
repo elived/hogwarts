@@ -63,6 +63,7 @@ namespace HogwartsHouses.Services
 
             room.Name = name;
             room.House = house;
+            room.MaxCapacity = maxCapacity;
             
             await _db.SaveChangesAsync();
             return room;

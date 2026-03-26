@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
 
@@ -8,32 +9,8 @@ namespace HogwartsHouses.DAL;
 
 public class StudentRepository : IStudentRepository<Student>
 {
-    private HashSet<Student> _students = new();
+    private HashSet<Student> _students;
     private readonly IRepository<Room> _rooms;
-
-    public StudentRepository(IRepository<Room> rooms)
-    {
-        _rooms = rooms;
-        SeedStudents();
-    }
-    
-    private void SeedStudents()
-    {
-        _students = new HashSet<Student>
-        {
-            new Student { Id = 1, Name = "Hermione", House = HouseType.Gryffindor, Pet = PetType.Cat },
-            new Student { Id = 2, Name = "Draco",House = HouseType.Slytherin, Pet = PetType.None },
-            new Student { Id = 3, Name = "Ron Weasley", House = HouseType.Gryffindor, Pet = PetType.Rat },
-            new Student { Id = 4, Name = "Neville Longbottom", House = HouseType.Gryffindor, Pet = PetType.Rat },
-            new Student { Id = 5, Name = "Harry Potter", House = HouseType.Gryffindor, Pet = PetType.Owl },
-            new Student { Id = 6, Name = "Luna Lovegood", House = HouseType.Ravenclaw, Pet = PetType.Cat },
-            new Student { Id = 7, Name = "Cho Chang", House = HouseType.Ravenclaw, Pet = PetType.None },
-            new Student { Id = 8, Name = "Pansy Parkinson", House = HouseType.Slytherin, Pet = PetType.None },
-            new Student { Id = 9, Name = "Cedric Diggory", House = HouseType.Hufflepuff, Pet = PetType.None },
-            new Student { Id = 10, Name = "Ernie Macmillan", House = HouseType.Hufflepuff, Pet = PetType.None }
-
-        };
-    }
     
     public IEnumerable<Student> GetAllStudents()
     {
@@ -46,14 +23,14 @@ public class StudentRepository : IStudentRepository<Student>
         return _students.FirstOrDefault(s => s.Id == id);
     }
 
-    public IEnumerable<Student> AddStudent(int id, string name, HouseType house, PetType pet)
+    public IEnumerable<Student> AddStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
-        var newStudent = new Student { Id = id, Name = name, House = house, Pet = pet };
+        var newStudent = new Student { Id = id, Name = name, House = house, Pet = pet, RoomId = roomId};
         _students.Add(newStudent);
         return _students;
     }
 
-    public Student? UpdateStudent(int id, string name, HouseType house, PetType pet)
+    public Student? UpdateStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
         if (id <= 0) throw new ArgumentException("ID must be positive", nameof(id));
             
@@ -63,6 +40,7 @@ public class StudentRepository : IStudentRepository<Student>
         s.Name = name;
         s.House = house;
         s.Pet = pet;
+        s.RoomId = roomId;
 
         return s;
 
@@ -112,4 +90,5 @@ public class StudentRepository : IStudentRepository<Student>
         
         return student;
     }
+
 }
