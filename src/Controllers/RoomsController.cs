@@ -2,6 +2,8 @@
 using HogwartsHouses.Data;
 using HogwartsHouses.Models.Types;
 using HogwartsHouses.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -52,6 +54,10 @@ public class RoomsController : ControllerBase
         return Ok(updated);
     }
 
+    [Authorize(
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+        Roles = "Admin"
+    )]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

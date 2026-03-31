@@ -1,11 +1,13 @@
 ﻿using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HogwartsHouses.Data;
 
-public class AppDbContext : IdentityDbContext<Users>
+public class AppDbContext : IdentityDbContext<User, IdentityRole, string>
+
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -13,6 +15,7 @@ public class AppDbContext : IdentityDbContext<Users>
      
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Student> Students { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,67 +38,18 @@ public class AppDbContext : IdentityDbContext<Users>
         });
         
         // seeding data into database
+        
         modelBuilder.Entity<Room>().HasData(
-            new Room
-            {
-                Id = 1,
-                Name = "Bedroom 1",
-                House = HouseType.Gryffindor,
-                MaxCapacity = 4
-            },
-            new Room
-            {
-                Id = 2,
-                Name = "Bedroom 2",
-                House = HouseType.Gryffindor,
-                MaxCapacity = 2
-            },
-            new Room
-            {
-                Id = 4,
-                Name = "Bedroom 1",
-                House = HouseType.Slytherin,
-                MaxCapacity = 4
-            },
-            new Room
-            {
-                Id = 5,
-                Name = "Bedroom 2",
-                House = HouseType.Slytherin,
-                MaxCapacity = 2
-            },
-            
-        new Room
-        {
-            Id = 6,
-            Name = "Raven Tower Room 1",
-            House = HouseType.Ravenclaw,
-            MaxCapacity = 4
-        },
-        new Room
-        {
-            Id = 7,
-            Name = "Raven Tower Room 2",
-            House = HouseType.Ravenclaw,
-            MaxCapacity = 2
-        },
-
-        // ✅ Hufflepuff
-        new Room
-        {
-            Id = 8,
-            Name = "Badger Den Room 1",
-            House = HouseType.Hufflepuff,
-            MaxCapacity = 4
-        },
-        new Room
-            {
-                Id = 9,
-                Name = "Badger Den Room 2",
-                House = HouseType.Hufflepuff,
-                MaxCapacity = 2
-            }
+            new Room { Id = 1, Name = "Bedroom 1", House = HouseType.Gryffindor, MaxCapacity = 4 },
+            new Room { Id = 2, Name = "Bedroom 2", House = HouseType.Gryffindor, MaxCapacity = 2 },
+            new Room { Id = 4, Name = "Bedroom 1", House = HouseType.Slytherin, MaxCapacity = 4 },
+            new Room { Id = 5, Name = "Bedroom 2", House = HouseType.Slytherin, MaxCapacity = 2 },
+            new Room { Id = 6, Name = "Raven Tower Room 1", House = HouseType.Ravenclaw, MaxCapacity = 4 },
+            new Room { Id = 7, Name = "Raven Tower Room 2", House = HouseType.Ravenclaw, MaxCapacity = 2 },
+            new Room { Id = 8, Name = "Badger Den Room 1", House = HouseType.Hufflepuff, MaxCapacity = 4 },
+            new Room { Id = 9, Name = "Badger Den Room 2", House = HouseType.Hufflepuff, MaxCapacity = 2 }
         );
+
 
         modelBuilder.Entity<Student>().HasData(
             new Student { Id = 1, Name = "Hermione", House = HouseType.Gryffindor, Pet = PetType.Cat, RoomId = 1},
