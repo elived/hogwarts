@@ -1,0 +1,69 @@
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using HogwartsHouses.DTO;
+using HogwartsHouses.Models;
+using HogwartsHouses.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
+namespace HogwartsHouses.Controllers;
+
+[Route("[controller]")]
+[ApiController]
+public class AuthController(IAuthService authService) : ControllerBase
+{
+    public static User user = new User();
+
+    [HttpPost("register")]
+    [AllowAnonymous]
+    public async Task<ActionResult<User>> Register(UserDto request)
+    {
+        var user = await authService.RegisterAsync(request);
+        if (user is null)
+            return BadRequest("Username already taken");
+
+        return Ok(user);
+    }
+
+    [HttpPost("login")]
+    [AllowAnonymous]
+    public async Task<ActionResult<User>> Login(UserDto request)
+    {
+        var token = await authService.LoginAsync(request);
+
+        if (token is null)
+            return BadRequest("Invalid username or password!");
+
+        return Ok(token);
+    }
+
+    [HttpDelete("delete")]
+    //[Authorize]
+    public async Task<IActionResult> DeleteAccount(string username)
+    {
+        if (username == null)
+            return Unauthorized();
+
+        var result = await authService.DeleteUserAsync(username);
+
+        if (!result)
+            return NotFound("User not found");
+
+        return Ok("User deleted");
+    }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("who-am-i")]
+    public async Task<IActionResult> Me()
+    {
+        return Ok(new
+        {
+            Authenicated = User.Identity!.IsAuthenticated,
+            Username = User.Identity.Name,
+            Role = User.FindFirst(ClaimTypes.Role)?.Value
+        });
+    }
+}
