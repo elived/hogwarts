@@ -1,10 +1,13 @@
 ﻿//import { useState } from 'react'
 
 import "../styles/HomePageStyle.css";
-import {houses} from "../types.ts";
+import {houseIcons, houseLabels, HouseType} from "../types.ts";
 
 function HomePage()  {
-    
+    const houseValues = Object.values(HouseType).filter(
+        v => typeof v === "number"
+    ) as HouseType[];
+
 
     return(
         <>
@@ -16,11 +19,11 @@ function HomePage()  {
                         their education in the magical arts. The school is divided into four houses: 
                     </p>
                     <ul className="custom-list">
-                        {houses.map((house) => (
+                        {houseValues.map((house) => (
                             <li 
-                                key={house.name}>
-                                <img src={house.icon} alt={`${house.name} icon`} className="custom-list-img"/>
-                                {house.name}
+                                key={house}>
+                                <img src={houseIcons[house]} alt={`${houseLabels[house]} icon`} className="custom-list-img"/>
+                                {houseLabels[house]}
                             </li>
                         ))}
                     </ul>
