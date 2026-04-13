@@ -1,0 +1,22 @@
+﻿.custom-list {
+    list-style: none;
+    padding-left: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+.custom-list-img {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0; /* important in flex layouts */
+    object-fit: contain
+
+}
