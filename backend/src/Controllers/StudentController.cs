@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HogwartsHouses.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class StudentController : ControllerBase
 {
     private readonly IStudentService _service;

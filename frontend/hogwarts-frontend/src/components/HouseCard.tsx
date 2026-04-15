@@ -1,13 +1,18 @@
 ﻿import "./styles/HouseCardStyle.css";
+import "./styles/CardStyle.css";
+
+import {houseIcons, houseLabels, type HouseType} from "../types.ts";
 interface HousesPageProps {
-    name: string;
-    imageUrl: string;
-    onClick: () => void;
+    house: HouseType;
+    onClick: (house: HouseType) => void;
 }
 
-export const Card = ({name, imageUrl, onClick}: HousesPageProps) => {
+export const Card = ({house, onClick}: HousesPageProps) => {
+    const name = houseLabels[house];
+    const imageUrl = houseIcons[house];
+    
     return (
-        <button className="card" onClick={onClick}>
+        <button className="card" onClick={() => onClick(house)}>
             <div className="house">
                 <img src={imageUrl} alt={`${name} crest`} className="image-position" />
                 <div>
@@ -16,4 +21,4 @@ export const Card = ({name, imageUrl, onClick}: HousesPageProps) => {
             </div>
         </button>        
     )
-}
+} 

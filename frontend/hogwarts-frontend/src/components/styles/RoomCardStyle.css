@@ -1,0 +1,23 @@
+﻿.room-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-card p {
+    margin: 0.25rem 0;
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.room-card strong {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.room > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+
+}
