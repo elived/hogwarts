@@ -16,18 +16,27 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
     const navigator = useNavigate();
     const location = useLocation();
     
+    const isLoggedIn = !!localStorage.getItem("authToken");
+    const visibleLinks = links.filter(link => {
+        if (link.text === "Login" && isLoggedIn) return false;
+        if (link.text === "Logout" && !isLoggedIn) return false;
+        return true;
+    })
+    
     const showBackButton = 
         location.pathname !== '/' && 
         location.pathname !== '/houses' &&
         location.pathname !== '/students' &&
         location.pathname !== '/rooms' &&
-        location.pathname !== '/login';
+        location.pathname !== '/login' &&
+        location.pathname !== '/register' &&
+        location.pathname !== '/admin';
     
     return (
         <div className="app-layout">
             <nav className="navbar">
                 <ul className="navbar-list">
-                    {links.map((link, index) => (
+                    {visibleLinks.map((link, index) => (
                         <li key={index} className="navbar-item">
                             <button className={`nav-button nav-${link.text.toLowerCase()}`}
                                     onClick={() => {
