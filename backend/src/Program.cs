@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,9 @@ namespace HogwartsHouses
     {
         public static void Main(string[] args)
         {
+            
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 
             var builder = WebApplication.CreateBuilder(args);
 
@@ -111,7 +115,22 @@ namespace HogwartsHouses
                     } 
                 });
             });
-
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler =
+                        ReferenceHandler.IgnoreCycles;
+                });
+            
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins, policy =>
+                {
+                    policy.WithOrigins("http://localhost:5174/")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             builder.Services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
             builder.Services.AddScoped<IRoomService, RoomService>();
@@ -128,7 +147,11 @@ namespace HogwartsHouses
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
+            app.UseHttpsRedirection();
+            
+            app.UseCors("_myAllowSpecificOrigins");
+            
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

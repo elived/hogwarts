@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace HogwartsHouses.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class RoomsController : ControllerBase
 {
     private readonly IRoomService _service;
@@ -23,7 +23,7 @@ public class RoomsController : ControllerBase
         _service = service;
         _studentService = studentService;
     }
-
+    
     [HttpGet]
     public async Task<IActionResult> GetRooms()
     {

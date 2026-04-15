@@ -1,20 +1,4 @@
-﻿.card {
-    background: #3f3f63;
-    border: none;
-    border-radius: 12px;
-    padding: 1.5rem;
-    cursor: pointer;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    text-align: center;
-    width: 100%;
-    max-width: 320px;
-
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+﻿
 
 .image-position {
     height: 180px;

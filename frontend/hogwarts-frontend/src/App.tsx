@@ -13,6 +13,8 @@ import HufflepuffPage from "./pages/HufflepuffPage.tsx";
 import RavenclawPage from "./pages/RavenclawPage.tsx";
 import SlytherinPage from "./pages/SlytherinPage.tsx";
 import StudentsPage from "./pages/StudentsPage.tsx";
+import RoomsPage from "./pages/RoomsPage.tsx";
+import RoomDetailsPage from "./pages/RoomDetailsPage.tsx";
 
 const App: React.FC = () => {
     const navLinks = [
@@ -37,6 +39,8 @@ const App: React.FC = () => {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/houses" element={<HousesPage />} />
                     <Route path="/students" element={<StudentsPage />} />
+                    <Route path="/rooms" element={<RoomsPage />} />
+                    <Route path="/rooms/:id" element={<RoomDetailsPage />} />
                     <Route path="/houses/gryffindor" element={<GryffindorPage />} />
                     <Route path="/houses/hufflepuff" element={<HufflepuffPage />} />
                     <Route path="/houses/ravenclaw" element={<RavenclawPage />} />

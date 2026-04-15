@@ -1,5 +1,8 @@
 ﻿import {Card} from "../components/HouseCard.tsx";
 import { useNavigate} from "react-router-dom";
+import {HouseType} from "../types.ts";
+import "../components/styles/CardStyle.css";
+
 
 function HousesPage() {
     const navigate = useNavigate();
@@ -12,33 +15,27 @@ function HousesPage() {
                     <div>
 
                         <Card
-                            name="Gryffindor"
-                            imageUrl="/images/gryffindor.png"
-                            onClick={() => 
-                                navigate(`/houses/gryffindor`)
-                            }
+                            house={HouseType.Gryffindor}
+                            onClick={(house) => 
+                                navigate(`/houses/${HouseType[house].toLowerCase()}`)}
                         />
 
                         <Card
-                            name="Hufflepuff"
-                            imageUrl="/images/hufflepuff.png"
-                            onClick={() =>  navigate(`/houses/hufflepuff`) }
+                            house={HouseType.Hufflepuff}
+                            onClick={(house) =>
+                                navigate(`/houses/${HouseType[house].toLowerCase()}`)}
                         />
 
                         <Card
-                            name="Ravenclaw"
-                            imageUrl="/images/ravenclaw.png"
-                            onClick={() =>
-                                navigate(`/houses/ravenclaw`)
-                            }
+                            house={HouseType.Ravenclaw}
+                            onClick={(house) =>
+                                navigate(`/houses/${HouseType[house].toLowerCase()}`)}
                         />
 
                         <Card
-                            name="Slytherin"
-                            imageUrl="/images/slytherin.png"
-                            onClick={() =>
-                                navigate(`/houses/slytherin`)
-                            }
+                            house={HouseType.Slytherin}
+                            onClick={(house) =>
+                                navigate(`/houses/${HouseType[house].toLowerCase()}`)}
                         />
 
                     </div>
