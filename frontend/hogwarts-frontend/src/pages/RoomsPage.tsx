@@ -2,6 +2,8 @@
 import type {Room} from "../types";
 import {useEffect, useState} from "react";
 import {fetchRooms} from "../api/fetchRoomApi.ts";
+import "../components/styles/CardStyle.css";
+
 
 
 
@@ -22,9 +24,9 @@ function RoomsPage() {
 
     return (
         <main className="main">
-            <h2>All Rooms</h2>
+            <h2>All the Rooms of Hogwarts</h2>
 
-            <div className="room-grid">
+            <div className="card-grid">
                 {rooms.map(room => (
                     <RoomCard
                         key={room.Id}

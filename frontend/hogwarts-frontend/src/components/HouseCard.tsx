@@ -1,4 +1,6 @@
 ﻿import "./styles/HouseCardStyle.css";
+import "./styles/CardStyle.css";
+
 import {houseIcons, houseLabels, type HouseType} from "../types.ts";
 interface HousesPageProps {
     house: HouseType;
@@ -19,4 +21,4 @@ export const Card = ({house, onClick}: HousesPageProps) => {
             </div>
         </button>        
     )
-}
+} 

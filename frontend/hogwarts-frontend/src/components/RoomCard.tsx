@@ -1,4 +1,8 @@
 ﻿import "./styles/RoomCardStyle.css";
+import "./styles/CardStyle.css";
+
+import { useNavigate } from "react-router-dom";
+
 import type {Room} from "../types";
 import { houseLabels, houseIcons } from "../types";
 
@@ -7,28 +11,28 @@ interface RoomCardProps {
     onClick?: (room: Room) => void;
 }
 
-export const RoomCard = ({ room, onClick }: RoomCardProps) => {
+export const RoomCard = ({ room }: RoomCardProps) => {
     const houseName = houseLabels[room.House];
     const houseIcon = houseIcons[room.House];
     const occupancy = room.Students?.length ?? 0;
+    const navigate = useNavigate();
 
     return (
-        <div
-            className="room-card"
-            onClick={() => onClick?.(room)}
-        >
-            <img
-                src={houseIcon}
-                alt={`${houseName} crest`}
-                className="room-card-icon"
-            />
+        <button className="card"
+                onClick={() => navigate(`/rooms/${room.Id}`)}>
+            <div className="room">
+                <img
+                    src={houseIcon}
+                    alt={`${houseName} crest`}
+                    className="image-position"
+                />
+                <div className="room-info">
+                    <h3 className="card-title">{room.Name}</h3>
 
-            <h3 className="room-card-title">{room.Name}</h3>
-
-            <p><strong>House:</strong> {houseName}</p>
-            <p>
-                <strong>Capacity:</strong> {occupancy} / {room.MaxCapacity}
-            </p>
-        </div>
+                    <p><strong>House:</strong> {houseName} <br/>  
+                        <strong><br/>Capacity:</strong> {occupancy} / {room.MaxCapacity}</p>
+                </div>
+            </div>
+        </button>
     );
 };

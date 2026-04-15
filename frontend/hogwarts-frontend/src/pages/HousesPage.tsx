@@ -1,6 +1,8 @@
 ﻿import {Card} from "../components/HouseCard.tsx";
 import { useNavigate} from "react-router-dom";
 import {HouseType} from "../types.ts";
+import "../components/styles/CardStyle.css";
+
 
 function HousesPage() {
     const navigate = useNavigate();
