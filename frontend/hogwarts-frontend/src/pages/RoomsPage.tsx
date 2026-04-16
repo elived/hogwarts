@@ -5,9 +5,6 @@ import { fetchRooms} from "../api/fetchRoomApi.ts";
 import "../components/styles/CardStyle.css";
 import SearchBar from "../components/SearchBar.tsx";
 
-
-
-
 function RoomsPage() {
     const [rooms, setRooms] = useState<Room[]>([]);
     const [loading, setLoading] = useState(true);

@@ -20,3 +20,11 @@
     object-fit: contain
 
 }
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+    justify-items: center;
+}
+

@@ -3,9 +3,10 @@
 type SearchBarProps<T> = {
     onSearch: (query: string) => Promise<T[]>;
     renderItem: (item: T) => React.ReactNode;
+    showResults?: boolean;
 };
 
-function SearchBar<T>({ onSearch, renderItem }: SearchBarProps<T>) {
+function SearchBar<T>({ onSearch, renderItem, showResults }: SearchBarProps<T>) {
     const [searchQuery, setSearchQuery] = useState("");
     const [data, setData] = useState<T[]>([]);
     const [error, setError] = useState("");
@@ -35,8 +36,17 @@ function SearchBar<T>({ onSearch, renderItem }: SearchBarProps<T>) {
                 type="text"
                 placeholder="search..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}/>
+                onChange={(e) => setSearchQuery(e.target.value)}
+            />
             {error && <p>{error}</p>}
+
+            {showResults && renderItem && (
+                <ul>
+                    {data.map((item, index) => (
+                        <li key={index}>{renderItem(item)}</li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }
