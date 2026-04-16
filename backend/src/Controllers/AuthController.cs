@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HogwartsHouses.DTO;
@@ -16,6 +17,24 @@ namespace HogwartsHouses.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     public static User user = new User();
+    
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<UserDto>>> GetAllUsers()
+    {
+        var users = await authService.GetUserAsync();
+        return Ok(users);
+    }
+    
+    [HttpGet("user/{username}")]
+    [AllowAnonymous]
+    public async Task<ActionResult> GetUserByUsername(string username)
+    {
+        var user = await authService.GetUserByUsernameAsync(username);
+        if (user is null)            
+            return NotFound("User not found"); 
+        return Ok(user);
+    }
 
     [HttpPost("register")]
     [AllowAnonymous]

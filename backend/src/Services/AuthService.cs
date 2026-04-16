@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,26 @@ public class AuthService : IAuthService
         _context = context;
         _config = config;
     }
+    public async Task<List<UserDto>> GetUserAsync()
+    {
+        return await _context.Users
+            .Select(u => new UserDto
+            {
+                Username = u.Username,
+                Role = u.Role
+            }).ToListAsync();
+    }
+    public async Task<UserDto?> GetUserByUsernameAsync(string username)
+    {
+        return await _context.Users
+            .Where(u => u.Username == username)
+            .Select(u => new UserDto
+            {
+                Username = u.Username,
+                Role = u.Role
+            }).FirstOrDefaultAsync();
+    }
+    
     public async Task<string> LoginAsync(UserDto request)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
