@@ -2,6 +2,10 @@
 import type {UserRoleInfo} from "../types.ts";
 import {decodeRole} from "../utils/jwtDecoder.ts";
 import {checkAuthorized} from "../api/authApi.ts";
+import RoomsPage from "./RoomsPage.tsx";
+import StudentsPage from "./StudentsPage.tsx";
+import "../styles/HomePageStyle.css";
+
 
 function AdminPage() {
     const [userRoleInfos, setUserRoleInfos] = useState<UserRoleInfo[]>([]);
@@ -12,7 +16,6 @@ function AdminPage() {
             const users = res as unknown as UserRoleInfo[];
             setUserRoleInfos(users.sort((a, b) => a.id - b.id));
         });
-
     }
 
     useEffect(() => {
@@ -31,8 +34,11 @@ function AdminPage() {
     return (
         <div className="container">
             <h1>Admin Dashboard</h1>
-            <h2>Rooms</h2>
-            <h2>Students</h2>
+            <div className="dashboard-grid">
+                <RoomsPage></RoomsPage>
+                <StudentsPage></StudentsPage>
+            </div>
+
             <div className="card-grid">
                 {userRoleInfos.map(userInfo => (
                     <div key={userInfo.id} className="card" style={{ padding: 'var(--spacing-md)', minHeight: 'auto', width: '100%', maxWidth: '300px' }}>
