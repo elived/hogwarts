@@ -1,8 +1,6 @@
-//import { useState } from 'react'
 
 import './App.css'
 import React from 'react';
-import Navbar from './components/Navbar.tsx';
 import HousesPage from "./pages/HousesPage.tsx";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
