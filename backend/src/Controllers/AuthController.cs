@@ -18,7 +18,7 @@ public class AuthController(IAuthService authService) : ControllerBase
 {
     public static User user = new User();
     
-    [HttpGet]
+    [HttpGet("users")]
     [AllowAnonymous]
     public async Task<ActionResult<List<UserDto>>> GetAllUsers()
     {
@@ -59,7 +59,7 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok(token);
     }
 
-    [HttpDelete("delete")]
+    [HttpDelete("user/{username}")]
     //[Authorize]
     public async Task<IActionResult> DeleteAccount(string username)
     {
@@ -75,7 +75,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("who-am-i")]
+    [HttpGet("find-role")]
     public async Task<IActionResult> Me()
     {
         return Ok(new

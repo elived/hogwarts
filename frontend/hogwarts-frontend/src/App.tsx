@@ -20,6 +20,7 @@ import {NotFoundPage} from "./pages/NotFoundPage.tsx";
 import {ProtectedRoute} from "./utils/ProtectedRoute.tsx";
 import {ProtectedLayout} from "./utils/ProtectedLayout.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
+import CreateRoomPage from "./pages/CreateRoomPage.tsx";
 
 const App: React.FC = () => {
     const navLinks = [
@@ -54,6 +55,8 @@ const App: React.FC = () => {
                       <Route path="/houses/hufflepuff" element={<HufflepuffPage />} />
                       <Route path="/houses/ravenclaw" element={<RavenclawPage />} />
                       <Route path="/houses/slytherin" element={<SlytherinPage />} />
+                      
+                      <Route path="/admin/create-room" element={<CreateRoomPage />} />
                   </Route>
               </Route>
 

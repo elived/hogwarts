@@ -1,25 +1,21 @@
 ﻿import "./styles/RoomCardStyle.css";
 import "./styles/CardStyle.css";
-
-import { useNavigate } from "react-router-dom";
-
 import type {Room} from "../types";
 import { houseLabels, houseIcons } from "../types";
 
 interface RoomCardProps {
     room: Room;
     onClick?: (room: Room) => void;
+    onDelete?: (room: Room) => void;
 }
 
-export const RoomCard = ({ room }: RoomCardProps) => {
+export const RoomCardDelete = ({ room, onDelete }: RoomCardProps) => {
     const houseName = houseLabels[room.House];
     const houseIcon = houseIcons[room.House];
     const occupancy = room.Students?.length ?? 0;
-    const navigate = useNavigate();
 
     return (
-        <div className="card"
-                onClick={() => navigate(`/rooms/${room.Id}`)}>
+        <div className="card">
             <div className="room">
                 <img
                     src={houseIcon}
@@ -32,6 +28,17 @@ export const RoomCard = ({ room }: RoomCardProps) => {
                     <p><strong>House:</strong> {houseName} <br/>
                         <strong><br/>Capacity:</strong> {occupancy} / {room.MaxCapacity}</p>
                 </div>
+                {onDelete && (
+                    <button
+                        className="delete-button"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete(room);
+                        }}
+                    >
+                        Delete room
+                    </button>
+                )}
             </div>
         </div>
     );

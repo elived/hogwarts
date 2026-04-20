@@ -1,26 +1,19 @@
-﻿import {useEffect, useState} from "react";
-import type {UserRoleInfo} from "../types.ts";
-import {decodeRole} from "../utils/jwtDecoder.ts";
-import {checkAuthorized} from "../api/authApi.ts";
-import RoomsPage from "./RoomsPage.tsx";
+﻿import {decodeRole} from "../utils/jwtDecoder.ts";
 import StudentsPage from "./StudentsPage.tsx";
 import "../styles/HomePageStyle.css";
+import UserPage from "./UserPage.tsx";
+import RoomsPageDelete from "./RoomPageDelete.tsx";
+import { useNavigate} from "react-router-dom";
+import StudentDeletePage from "./StudentDeletePage.tsx";
 
 
 function AdminPage() {
-    const [userRoleInfos, setUserRoleInfos] = useState<UserRoleInfo[]>([]);
+    const navigate = useNavigate();
+    
+    
     const role = decodeRole();
-
-    const updateStoredInfo = () => {
-        checkAuthorized().then(res => {
-            const users = res as unknown as UserRoleInfo[];
-            setUserRoleInfos(users.sort((a, b) => a.id - b.id));
-        });
-    }
-
-    useEffect(() => {
-        updateStoredInfo();
-    }, [])
+    console.log(import.meta.env.VITE_API_BASE_URL);
+    
 
     if (role !== "Admin") {
         return (
@@ -35,15 +28,21 @@ function AdminPage() {
         <div className="container">
             <h1>Admin Dashboard</h1>
             <div className="dashboard-grid">
-                <RoomsPage></RoomsPage>
-                <StudentsPage></StudentsPage>
-            </div>
-
-            <div className="card-grid">
-                {userRoleInfos.map(userInfo => (
-                    <div key={userInfo.id} className="card" style={{ padding: 'var(--spacing-md)', minHeight: 'auto', width: '100%', maxWidth: '300px' }}>
-                    </div>
-                ))}
+                <div>
+                    <h3>hello test</h3>
+                    <UserPage/>
+                </div>
+                <div>
+                    <h2>Testing</h2>
+                    <button
+                        onClick={() => {navigate('/admin/create-room')}}>
+                        Create a new room
+                    </button>
+                    <RoomsPageDelete/>
+                </div>
+                <div>
+                    <StudentDeletePage/>
+                </div>
             </div>
         </div>
     )

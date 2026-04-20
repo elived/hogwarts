@@ -9,9 +9,10 @@ import { houseLabels, houseIcons } from "../types";
 interface StudentCardProps {
     student: Student;
     onClick?: (student: Student) => void;
+    onDelete?: (student: Student) => void;
 }
 
-export const StudentCard = ({ student }: StudentCardProps) => {
+export const StudentCardDelete = ({ student, onDelete }: StudentCardProps) => {
     const houseName = houseLabels[student.House];
     const houseIcon = houseIcons[student.House];
     const studentName = student.Name;
@@ -27,6 +28,17 @@ export const StudentCard = ({ student }: StudentCardProps) => {
                 <div className="room-info">
                     <h3 className="card-title">{studentName}</h3>
                 </div>
+                {onDelete && (
+                        <button
+                            className="delete-button"
+                            onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete(student);
+                            }}
+                        >
+                            Delete student
+                        </button>
+                    )}
             </div>
         </div>
     );

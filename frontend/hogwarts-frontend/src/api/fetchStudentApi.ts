@@ -22,3 +22,13 @@ export async function fetchStudents(): Promise<Student[]> {
     }));
 }
 
+export async function deleteStudent(id: number): Promise<void> {
+    const response = await fetch(`/api/Student/${id}`, {method: "DELETE"});
+    
+    if (!response.ok){
+        throw new Error(
+            `Delete Student with id ${id} failed: ${response.status} ${response.statusText}`
+        )
+    }
+    
+}
