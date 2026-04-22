@@ -1,5 +1,7 @@
 ﻿import {HouseType, PetType} from "../types";
 import type { Room } from "../types";
+import {API_BASE_URL} from "../config/api.ts";
+import {CreateAuthRequest} from "./authApi.ts";
 
 export async function fetchRooms(): Promise<Room[]> {
     const response = await fetch("/api/Rooms");
@@ -50,15 +52,11 @@ export async function fetchRoomById(id: number): Promise<Room> {
 }
 
 export async function deleteRoom(id: number): Promise<void> {
-    const response = await fetch(`/api/Rooms/${id}`, {
-        method: "DELETE"
-    });
+    const authReq = CreateAuthRequest({ method: "DELETE" });
+    if (!authReq) throw new Error("Missing JWT token!");
 
-    if (!response.ok) {
-        throw new Error(
-            `Delete Room failed: ${response.status} ${response.statusText}`
-        );
-    }
+    const response = await fetch(`${API_BASE_URL}/api/Rooms/${id}`, authReq);
+    if (!response.ok) throw new Error(await response.text());
 }
 
 export async function createRoom(room: Omit<Room, "Id">): Promise<Room> {

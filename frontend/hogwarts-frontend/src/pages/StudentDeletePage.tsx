@@ -1,6 +1,6 @@
 ﻿import {useEffect, useState} from "react";
 import type { Student} from "../types.ts";
-import {fetchStudents} from "../api/fetchStudentApi.ts";
+import {deleteStudent, fetchStudents} from "../api/fetchStudentApi.ts";
 import SearchBar from "../components/SearchBar.tsx";
 import {StudentCardDelete} from "../components/StudentCardDelete.tsx";
 import {deleteRoom} from "../api/fetchRoomApi.ts";
@@ -48,7 +48,7 @@ function StudentDeletePage() {
                                     return;
                                 }
 
-                                await deleteRoom(student.Id);
+                                await deleteStudent(student.Id);
 
                                 setStudents(prev =>
                                     prev.filter(s => s.Id !== student.Id)
