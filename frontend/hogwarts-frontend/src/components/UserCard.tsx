@@ -9,9 +9,10 @@ interface UserCardProps {
     user: UserRoleInfo;
     onClick?: (user: UserRoleInfo) => void;
     onDelete?: (user: UserRoleInfo) => void;
+    onRoleChange(username: string, role: string) : void;
 }
 
-export const UserCard = ({ user, onDelete }: UserCardProps) => {
+export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
     const username = user.username;
     const role = user.role;
 
@@ -33,6 +34,14 @@ export const UserCard = ({ user, onDelete }: UserCardProps) => {
                         Delete user
                     </button>
                 )}
+                <select
+                    className="delete-button"
+                    value={user.role}
+                    onChange={(event) => onRoleChange(user.username, event.target.value)}
+                >
+                     <option value="admin">Admin</option>
+                     <option value="user">User</option>   
+                </select>
             </div>
         </div>
     );

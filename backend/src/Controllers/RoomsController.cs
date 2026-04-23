@@ -46,7 +46,7 @@ public class RoomsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPatch("{id:int}")]
     public async Task<IActionResult> Update(int id, string name, HouseType house, int maxCapacity)
     {
         var updated = await _service.Update(id, name, house, maxCapacity);

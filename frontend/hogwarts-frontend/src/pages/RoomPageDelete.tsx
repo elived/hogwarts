@@ -4,12 +4,14 @@ import {deleteRoom, fetchRooms} from "../api/fetchRoomApi.ts";
 import "../components/styles/CardStyle.css";
 import SearchBar from "../components/SearchBar.tsx";
 import {RoomCardDelete} from "../components/RoomCardDelete.tsx";
+import {useNavigate} from "react-router-dom";
 
 function RoomsPageDelete() {
     const [rooms, setRooms] = useState<Room[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
+    const navigate = useNavigate();
 
 
 
@@ -36,6 +38,11 @@ function RoomsPageDelete() {
     return (
         <main className="main">
             <h2>All the Rooms of Hogwarts</h2>
+            <button
+                onClick={() => {navigate('/admin/create-room')}}>
+                Create a new room
+            </button>
+            <p> <br/> </p>
             <SearchBar<Room>
                 onSearch={searchRoom}
                 renderItem={(room) => (room.Id)}/>

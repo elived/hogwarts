@@ -42,7 +42,7 @@ public class StudentController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPatch("{id:int}")]
     public async Task<IActionResult> UpdateStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
         var updated = await _service.UpdateStudent(id, name, house, pet, roomId);
@@ -62,7 +62,7 @@ public class StudentController : ControllerBase
         return Ok(removed);
     }
 
-    [HttpPut("{id:int}/assign-new-room")]
+    [HttpPatch("{id:int}/assign-new-room")]
     public async Task<IActionResult> AssignStudentToRoom(int studentId, int roomId)
     {
         var newRoom = _service.AssignStudentToRoom(studentId, roomId);

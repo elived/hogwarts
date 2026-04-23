@@ -8,7 +8,6 @@ import StudentDeletePage from "./StudentDeletePage.tsx";
 
 
 function AdminPage() {
-    const navigate = useNavigate();
     
     
     const role = decodeRole();
@@ -29,15 +28,9 @@ function AdminPage() {
             <h1>Admin Dashboard</h1>
             <div className="dashboard-grid">
                 <div>
-                    <h3>hello test</h3>
                     <UserPage/>
                 </div>
                 <div>
-                    <h2>Testing</h2>
-                    <button
-                        onClick={() => {navigate('/admin/create-room')}}>
-                        Create a new room
-                    </button>
                     <RoomsPageDelete/>
                 </div>
                 <div>

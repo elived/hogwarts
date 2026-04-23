@@ -3,7 +3,6 @@ import type { Student} from "../types.ts";
 import {deleteStudent, fetchStudents} from "../api/fetchStudentApi.ts";
 import SearchBar from "../components/SearchBar.tsx";
 import {StudentCardDelete} from "../components/StudentCardDelete.tsx";
-import {deleteRoom} from "../api/fetchRoomApi.ts";
 
 function StudentDeletePage() {
     const [students, setStudents] = useState<Student[]>([]);

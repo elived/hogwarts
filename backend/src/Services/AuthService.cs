@@ -112,4 +112,17 @@ public class AuthService : IAuthService
 
         return true;
     }
+    
+    public async Task<bool> UpdateRoleAsync(string username, string newRole)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+        if (user == null)
+            return false;
+
+        user.Role = newRole;
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

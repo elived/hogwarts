@@ -22,7 +22,7 @@ export interface JwtTokenClaims {
 export interface UserRoleInfo {
     id: number,
     username: string,
-    role: Role
+    role: string
 }
 
 export type Room = {

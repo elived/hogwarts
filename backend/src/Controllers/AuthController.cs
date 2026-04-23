@@ -73,6 +73,28 @@ public class AuthController(IAuthService authService) : ControllerBase
 
         return Ok("User deleted");
     }
+    
+    [HttpPatch("{username}/role")]
+    public async Task<IActionResult> UpdateRole(string username, [FromBody] UpdateUserRoleRequest dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Role))
+            return BadRequest("Role cannot be empty");
+
+        var role = dto.Role.ToLower();
+        var availableRoles = new [] { "admin", "user" };
+        
+        if (!availableRoles.Contains(dto.Role.ToLower()))
+        {
+            return BadRequest($"Role not available: {dto.Role}.");
+        }
+
+        var success = await authService.UpdateRoleAsync(username, role);
+        
+        if(!success)
+            return NotFound($"User {username} not found");
+        
+        return Ok($"role updated -> {role}");
+    }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("find-role")]

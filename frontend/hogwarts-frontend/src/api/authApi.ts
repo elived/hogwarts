@@ -70,6 +70,31 @@ export const checkAuthorized = async () => {
     return response.ok;
 }
 
+export const ChangeUserRole = async (username: string, role: string) => {
+
+    const token = localStorage.getItem("authToken");
+    if (!token) throw Error("JWT not found!");
+
+    const response = await fetch(
+        `/api/Auth/${username}/role`,   // ✅ correct endpoint
+        {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ role }),
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    console.log(`Updated role ${username} → ${role}`);
+
+}
+
 export const CreateAuthRequest = (init: RequestInit = {}): RequestInit | null => {
     const token: string | null = localStorage.getItem("authToken");
     if (!token) {

@@ -1,7 +1,7 @@
 ﻿import {useEffect, useState} from "react";
 import type {UserRoleInfo} from "../types.ts";
 import SearchBar from "../components/SearchBar.tsx";
-import {deleteUser, fetchAllUsers} from "../api/authApi.ts";
+import {ChangeUserRole, deleteUser, fetchAllUsers} from "../api/authApi.ts";
 import {UserCard} from "../components/UserCard.tsx";
 
 function UserPage() {
@@ -9,6 +9,8 @@ function UserPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [filteredUsers, setFilteredUsers] = useState<UserRoleInfo[]>([]);
+    const [statusMsg, setStatusMsg] = useState("Change user roles:");
+
 
     useEffect(() => {
         fetchAllUsers()
@@ -25,6 +27,46 @@ function UserPage() {
         setFilteredUsers(result);
         return result;
     }
+    /*
+        const updateStoredInfo = () => {
+        fetchAllUsers().then(res => {
+            setUsers(res.sort((a: { id: number; }, b: { id: number; }) => a.id - b.id));
+        });
+    }
+    * */
+
+
+
+    const handleRoleChange = async (username: string, role: string) => {
+        setUsers(prev =>
+            prev.map(u =>
+                u.username === username
+                    ? { ...u, role }
+                    : u
+            )
+        );
+
+        setFilteredUsers(prev =>
+            prev.map(u =>
+                u.username === username
+                    ? { ...u, role }
+                    : u
+            )
+        );
+
+        try {
+            await ChangeUserRole(username, role);
+            setStatusMsg(`Updated user ${username} to ${role}!`);
+        } catch (e) {
+            setStatusMsg("Failed to update role");
+
+            fetchAllUsers().then(data => {
+                setUsers(data);
+                setFilteredUsers(data);
+            });
+        }
+    };
+
 
     if (loading) return <p>Loading users…</p>;
     if (error) return <p>Error: {error}</p>;
@@ -58,9 +100,15 @@ function UserPage() {
                             } catch (err) {
                                 alert(err instanceof Error ? err.message : "Delete failed");
                             }
+                            <p>{statusMsg}</p>
                         }}
+                        
+                        onRoleChange={(username, role) => handleRoleChange(username, role)}
+                        
                     />
+                    
                 ))}
+                
             </div>
         </main>
     );

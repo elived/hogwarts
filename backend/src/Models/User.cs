@@ -12,7 +12,7 @@ public class User : IdentityUser
 
     public int RoleId { get; set; }
 
-    public string Role { get; set; } = "User";
+    public string Role { get; set; } = "user";
     
     
 }

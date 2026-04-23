@@ -12,4 +12,5 @@ public interface IAuthService
     Task<User> RegisterAsync(UserDto request);
     Task<string?> LoginAsync(UserDto request);
     Task<bool> DeleteUserAsync(string username);
+    Task<bool> UpdateRoleAsync(string username, string roleName);
 }
