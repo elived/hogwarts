@@ -122,15 +122,19 @@ namespace HogwartsHouses
                         ReferenceHandler.IgnoreCycles;
                 });
             
+            
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins, policy =>
+                options.AddPolicy("_myAllowSpecificOrigins", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5174/")
+                    policy
+                        .WithOrigins("http://localhost:5173")
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
+
 
             builder.Services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
             builder.Services.AddScoped<IRoomService, RoomService>();

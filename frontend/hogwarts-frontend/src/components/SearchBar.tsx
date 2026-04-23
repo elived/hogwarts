@@ -28,7 +28,7 @@ function SearchBar<T>({ onSearch, renderItem, showResults }: SearchBarProps<T>) 
         };
         
         fetchData();
-    }, [searchQuery, onSearch]);
+    }, [searchQuery]);
     
     return (
         <div>
