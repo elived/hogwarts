@@ -1,4 +1,5 @@
-﻿using HogwartsHouses.Models;
+﻿using HogwartsHouses.DTO;
+using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

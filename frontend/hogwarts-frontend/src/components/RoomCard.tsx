@@ -18,7 +18,7 @@ export const RoomCard = ({ room }: RoomCardProps) => {
     const navigate = useNavigate();
 
     return (
-        <button className="card"
+        <div className="card"
                 onClick={() => navigate(`/rooms/${room.Id}`)}>
             <div className="room">
                 <img
@@ -29,10 +29,10 @@ export const RoomCard = ({ room }: RoomCardProps) => {
                 <div className="room-info">
                     <h3 className="card-title">{room.Name}</h3>
 
-                    <p><strong>House:</strong> {houseName} <br/>  
+                    <p><strong>House:</strong> {houseName} <br/>
                         <strong><br/>Capacity:</strong> {occupancy} / {room.MaxCapacity}</p>
                 </div>
             </div>
-        </button>
+        </div>
     );
 };

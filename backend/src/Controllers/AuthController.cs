@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HogwartsHouses.DTO;
@@ -16,6 +17,24 @@ namespace HogwartsHouses.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     public static User user = new User();
+    
+    [HttpGet("users")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<UserDto>>> GetAllUsers()
+    {
+        var users = await authService.GetUserAsync();
+        return Ok(users);
+    }
+    
+    [HttpGet("user/{username}")]
+    [AllowAnonymous]
+    public async Task<ActionResult> GetUserByUsername(string username)
+    {
+        var user = await authService.GetUserByUsernameAsync(username);
+        if (user is null)            
+            return NotFound("User not found"); 
+        return Ok(user);
+    }
 
     [HttpPost("register")]
     [AllowAnonymous]
@@ -40,7 +59,7 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok(token);
     }
 
-    [HttpDelete("delete")]
+    [HttpDelete("user/{username}")]
     //[Authorize]
     public async Task<IActionResult> DeleteAccount(string username)
     {
@@ -54,9 +73,31 @@ public class AuthController(IAuthService authService) : ControllerBase
 
         return Ok("User deleted");
     }
+    
+    [HttpPatch("{username}/role")]
+    public async Task<IActionResult> UpdateRole(string username, [FromBody] UpdateUserRoleRequest dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Role))
+            return BadRequest("Role cannot be empty");
+
+        var role = dto.Role.ToLower();
+        var availableRoles = new [] { "admin", "user" };
+        
+        if (!availableRoles.Contains(dto.Role.ToLower()))
+        {
+            return BadRequest($"Role not available: {dto.Role}.");
+        }
+
+        var success = await authService.UpdateRoleAsync(username, role);
+        
+        if(!success)
+            return NotFound($"User {username} not found");
+        
+        return Ok($"role updated -> {role}");
+    }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("who-am-i")]
+    [HttpGet("find-role")]
     public async Task<IActionResult> Me()
     {
         return Ok(new

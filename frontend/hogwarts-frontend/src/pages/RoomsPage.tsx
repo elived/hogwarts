@@ -39,6 +39,7 @@ function RoomsPage() {
             <SearchBar<Room>
                 onSearch={searchRoom}
                 renderItem={(room) => (room.Id)}/>
+            
             <div className="card-grid">
                 {filteredRooms.map(room => (
                     <RoomCard

@@ -1,5 +1,5 @@
 ﻿import { useState } from "react";
-import type { UserInfo } from "../types";
+import type {UserInfo} from "../types";
 
 interface AuthFormProps {
     onError(message: string): void;

@@ -17,7 +17,7 @@ export const StudentCard = ({ student }: StudentCardProps) => {
     const studentName = student.Name;
 
     return (
-        <button className="card">
+        <div className="card">
             <div className="room">
                 <img
                     src={houseIcon}
@@ -28,6 +28,6 @@ export const StudentCard = ({ student }: StudentCardProps) => {
                     <h3 className="card-title">{studentName}</h3>
                 </div>
             </div>
-        </button>
+        </div>
     );
 };

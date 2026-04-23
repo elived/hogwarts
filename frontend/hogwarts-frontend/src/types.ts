@@ -6,7 +6,6 @@
 export const Roles = {
     Admin: "Admin",
     User: "User",
-    StoreOwner: "StoreOwner",
 } as const;
 export type Role = typeof Roles[keyof typeof Roles];
 
@@ -23,7 +22,7 @@ export interface JwtTokenClaims {
 export interface UserRoleInfo {
     id: number,
     username: string,
-    role: Role
+    role: string
 }
 
 export type Room = {
