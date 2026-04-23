@@ -7,12 +7,16 @@ namespace HogwartsHouses.Models
     public class Student
     {
         public required int Id { get; set; }
+
+        public string UserId { get; set; } = null!; 
+        [JsonIgnore]
+        public User User { get; set; }
+        
         public required string Name { get; set; }
         public required HouseType House { get; set; }
         public required PetType Pet { get; set; }
         
         public required int RoomId { get; set; }
-        [JsonIgnore]  
-        public Room Room { get; set; }      
+        public Room Room { get; set; } = null!;
     }
 }

@@ -21,6 +21,8 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole, string>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        
 
         modelBuilder.Entity<Room>(e =>
         {
