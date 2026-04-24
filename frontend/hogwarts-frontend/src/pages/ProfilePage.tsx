@@ -2,7 +2,7 @@
 import { checkStudentStatus } from "../api/fetchStudentApi";
 import {houseIcons, houseLabels, HouseType, petLabels, PetType} from "../types.ts";
 
-export default function StudentDashboardPage() {
+export default function ProfilePage() {
     const [student, setStudent] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
 

@@ -119,11 +119,20 @@ export const deleteUser = async (username: string): Promise<void> => {
 }
 
 
+
 export const hasStudentRelation = async (): Promise<boolean> => {
     const authReq = CreateAuthRequest({ method: "GET" });
     if (!authReq) throw new Error("Missing JWT token!");
 
-    const response = await fetch(`${API_BASE_URL}/api/Auth/has-student-relation`, authReq);
-    if (!response.ok) throw new Error(await response.text());
-    return response.ok;
-}
+    const response = await fetch(
+        `${API_BASE_URL}/api/Auth/has-student-relation`,
+        authReq
+    );
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    const data = await response.json() as { hasStudent: boolean };
+    return data.hasStudent;
+};

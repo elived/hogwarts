@@ -184,7 +184,7 @@ export default function BecomeStudentPage() {
 
         try {
             await becomeStudent(payload);
-            navigate("/student-dashboard");
+            navigate("/profile");
         } catch (err: any) {
             alert(err.message ?? "Unauthorized");
         }

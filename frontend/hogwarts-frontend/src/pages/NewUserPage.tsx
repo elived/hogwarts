@@ -1,16 +1,39 @@
 ﻿import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {hasStudentRelation} from "../api/authApi.ts";
 
 export default function NewUserPage() {
-    const navigator = useNavigate();
+    const navigate = useNavigate();
     
-    return (
-        <main className="main">
-            <h1>Hello there!</h1>
-            <h2>Are you a new user?</h2>
-            <button onClick={() => navigator("/become-student")}>Yes, and i want to become a student</button>
-            <button onClick={() => navigator("/student-dashboard")}>No</button>
-            <button onClick={() => navigator("/")}>Yes, but i want to browse</button>
-        </main>
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    
+    useEffect(() => {
+        const checkStudent = async () => {
+            try {
+                const response = await hasStudentRelation();
+                
+                if (!response) {
+                    navigate("/become-student");
+                } else {
+                    navigate("/profile");
+                }
+            } catch (err: any) {
+                setError(err.message ?? "Something went wrong");
+            } finally {
+                setLoading(false);
+            }
+        };
+        
+        checkStudent();
+    }, [navigate]);
 
-    )
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+    return null
 }
