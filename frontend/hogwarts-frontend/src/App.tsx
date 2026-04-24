@@ -21,12 +21,16 @@ import {ProtectedRoute} from "./utils/ProtectedRoute.tsx";
 import {ProtectedLayout} from "./utils/ProtectedLayout.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import CreateRoomPage from "./pages/CreateRoomPage.tsx";
+import BecomeStudentPage from "./pages/BecomeStudentPage.tsx";
+import NewUserPage from "./pages/NewUserPage.tsx";
+import StudentDashboardPage from "./pages/StudentDashboardPage.tsx";
 
 const App: React.FC = () => {
     const navLinks = [
         { text: 'Home', url: '/' },
         { text: 'Houses', url: '/houses'},
         { text: 'Students', url: '/students'},
+        {text: 'Become Student', url: '/become-student'},
         { text: 'Rooms', url: '/rooms'},
         { text: 'Login',  url: '/login' },
         { text: 'Logout', url: '/login', onClickAction: () => logoutUser() },
@@ -50,6 +54,10 @@ const App: React.FC = () => {
                       <Route path="/rooms" element={<RoomsPage />} />
                       <Route path="/rooms/:id" element={<RoomDetailsPage />} />
                       <Route path='/admin' element={<AdminPage />} />
+                      
+                      <Route path='/login/new-user' element={<NewUserPage />} />
+                      <Route path='/become-student' element={<BecomeStudentPage />} />
+                      <Route path='/student-dashboard' element={<StudentDashboardPage />} />
 
                       <Route path="/houses/gryffindor" element={<GryffindorPage />} />
                       <Route path="/houses/hufflepuff" element={<HufflepuffPage />} />

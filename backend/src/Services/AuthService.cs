@@ -70,7 +70,7 @@ public class AuthService : IAuthService
         
         user.UserName = request.Username;
         user.PasswordHash = hashedPassword;
-        user.Role = "User";
+        user.Role = request.Role;
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();      
@@ -124,5 +124,10 @@ public class AuthService : IAuthService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<bool> UserHasStudentAsync(string username)
+    {
+        return await _context.Students.AnyAsync(s => s.User.UserName == username);
     }
 }

@@ -31,7 +31,7 @@ export function AuthForm({ onError, onSuccess, submitLabel = "Submit", children,
             return;
         }
 
-        onSuccess({ username, password } as UserInfo)
+        onSuccess({username, password} as UserInfo)
     }
 
     return (

@@ -25,7 +25,6 @@ export function RegisterPage() {
 
     return (
         <div className="form-page-container">
-            <h1 className="form-page-title">The Forbidden Fridge</h1>
             <div className="form-wrapper">
                 <AuthForm onError={handleError} onSuccess={handleSubmit} submitLabel="Register" isRegister={true}>
                     <div>

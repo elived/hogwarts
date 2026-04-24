@@ -18,6 +18,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 {
     public static User user = new User();
     
+    private readonly UserManager<User> _userManager;
+    
+    
     [HttpGet("users")]
     [AllowAnonymous]
     public async Task<ActionResult<List<UserDto>>> GetAllUsers()
@@ -80,10 +83,10 @@ public class AuthController(IAuthService authService) : ControllerBase
         if (string.IsNullOrWhiteSpace(dto.Role))
             return BadRequest("Role cannot be empty");
 
-        var role = dto.Role.ToLower();
-        var availableRoles = new [] { "admin", "user" };
+        var role = dto.Role;
+        var availableRoles = new [] { "Admin", "User" };
         
-        if (!availableRoles.Contains(dto.Role.ToLower()))
+        if (!availableRoles.Contains(dto.Role))
         {
             return BadRequest($"Role not available: {dto.Role}.");
         }
@@ -105,6 +108,26 @@ public class AuthController(IAuthService authService) : ControllerBase
             Authenicated = User.Identity!.IsAuthenticated,
             Username = User.Identity.Name,
             Role = User.FindFirst(ClaimTypes.Role)?.Value
+        });
+    }
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("has-student-relation")]
+    public async Task<ActionResult> Dashboard()
+    {
+        var username = User.Identity?.Name;
+
+        if (username == null)
+            return Unauthorized();
+
+        var user = await authService.GetUserByUsernameAsync(username);
+
+        if (user == null)
+            return Unauthorized();
+
+        return Ok(new
+        {
+            hasStudent = await authService.UserHasStudentAsync(username)
         });
     }
 }

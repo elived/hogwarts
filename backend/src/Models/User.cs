@@ -5,11 +5,11 @@ namespace HogwartsHouses.Models;
 
 public class User : IdentityUser
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     public int RoleId { get; set; }
 
-    public string Role { get; set; } = "user";
+    public string Role { get; set; } = "User";
     
     public Student? Student { get; set; } // optional
 

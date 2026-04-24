@@ -13,4 +13,5 @@ public interface IAuthService
     Task<string?> LoginAsync(UserDto request);
     Task<bool> DeleteUserAsync(string username);
     Task<bool> UpdateRoleAsync(string username, string roleName);
+    Task<bool> UserHasStudentAsync(string username);
 }
