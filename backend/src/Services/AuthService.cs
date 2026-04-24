@@ -70,7 +70,7 @@ public class AuthService : IAuthService
         
         user.UserName = request.Username;
         user.PasswordHash = hashedPassword;
-        user.Role = request.Role;
+        user.Role = "User";
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();      
