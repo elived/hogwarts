@@ -21,6 +21,11 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole, string>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Student)
+            .WithOne(s => s.User)
+            .HasForeignKey<Student>(s => s.UserId);
 
         modelBuilder.Entity<Room>(e =>
         {

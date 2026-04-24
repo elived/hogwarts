@@ -21,16 +21,20 @@ import {ProtectedRoute} from "./utils/ProtectedRoute.tsx";
 import {ProtectedLayout} from "./utils/ProtectedLayout.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import CreateRoomPage from "./pages/CreateRoomPage.tsx";
+import BecomeStudentPage from "./pages/BecomeStudentPage.tsx";
+import NewUserPage from "./pages/NewUserPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
 
 const App: React.FC = () => {
     const navLinks = [
+        { text: 'Login',  url: '/login' },
         { text: 'Home', url: '/' },
         { text: 'Houses', url: '/houses'},
         { text: 'Students', url: '/students'},
         { text: 'Rooms', url: '/rooms'},
-        { text: 'Login',  url: '/login' },
-        { text: 'Logout', url: '/login', onClickAction: () => logoutUser() },
-        {text: 'Admin', url: '/admin' }
+        {text: 'Profile', url: '/profile'},
+        {text: 'Admin', url: '/admin' },
+        { text: 'Logout', url: '/login', onClickAction: () => logoutUser() }
     ];
     
   //const [house, setHouse] = useState<string | null>(null)
@@ -50,6 +54,10 @@ const App: React.FC = () => {
                       <Route path="/rooms" element={<RoomsPage />} />
                       <Route path="/rooms/:id" element={<RoomDetailsPage />} />
                       <Route path='/admin' element={<AdminPage />} />
+                      
+                      <Route path='/login/new-user' element={<NewUserPage />} />
+                      <Route path='/become-student' element={<BecomeStudentPage />} />
+                      <Route path='/profile' element={<ProfilePage />} />
 
                       <Route path="/houses/gryffindor" element={<GryffindorPage />} />
                       <Route path="/houses/hufflepuff" element={<HufflepuffPage />} />

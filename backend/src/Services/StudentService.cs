@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using HogwartsHouses.DAL;
@@ -33,6 +34,15 @@ public class StudentService : IStudentService
             .Include(s => s.Room)
             .FirstOrDefaultAsync(s => s.Id == id);
     }
+    
+    public async Task<Student?> GetStudentByUsernameAsync(string username)
+    {
+        return await _db.Students
+            .Include(s => s.Room)
+            .Include(s => s.User)
+            .FirstOrDefaultAsync(s => s.User.UserName == username);
+    }
+    
 
     public async Task<IEnumerable<Student>> AddStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
@@ -130,4 +140,53 @@ public class StudentService : IStudentService
         
         return student;
     }
+
+    public async Task<Student> BecomeStudentAsync(string username, CreateStudentRequest dto)
+    {
+        var user = await _db.Users
+            .Include(u => u.Student)
+            .FirstOrDefaultAsync(u => u.UserName == username);
+        
+        if (user == null)
+            throw new Exception($"User {user} not found");
+        
+        if (user.Student != null)
+            throw new InvalidAsynchronousStateException($"User {username} is already a student: {user.Student}");
+        
+        var house = CalculateHouse(dto.Answers);
+
+        var room = await _db.Rooms
+            .Include(r => r.Students)
+            .FirstOrDefaultAsync(r => r.House == house && r.Students.Count < r.MaxCapacity);
+        
+        if (room == null)
+            throw new Exception($"No available rooms for house {house}");
+        
+        var student = new Student
+        {
+            Name = dto.Name,
+            House = house,
+            Pet = dto.Pet,
+            RoomId = room.Id,
+            UserId = user.Id,
+            User = user
+        };
+
+        _db.Students.Add(student);
+        await _db.SaveChangesAsync();
+
+        return student; 
+    }
+    
+    
+    private HouseType CalculateHouse(List<SortingAnswerHouse> answers)
+    {
+        // simple logic for now
+        return answers
+            .GroupBy(a => a.House)
+            .OrderByDescending(g => g.Count())
+            .First()
+            .Key;
+    }
+
 }
