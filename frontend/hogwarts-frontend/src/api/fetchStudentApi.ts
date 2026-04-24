@@ -32,3 +32,44 @@ export async function deleteStudent(id: number): Promise<void> {
     if (!response.ok) throw new Error(await response.text());
     
 }
+
+export async function becomeStudent(
+    payload: {
+        name: string;
+        pet: number;
+        answers: { house: number }[];
+    }
+): Promise<any> {
+
+
+    const authReq = CreateAuthRequest();
+    if (!authReq) throw new Error("Missing JWT token!");
+
+    authReq.method = "POST";
+    authReq.body = new Blob(
+        [JSON.stringify(payload)],
+        { type: "application/json" }
+    );
+
+
+    const response = await fetch(
+        `${API_BASE_URL}/api/Student/become-student`,
+        authReq
+    );
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+    
+   return response.json();
+}
+
+export async function checkStudentStatus(): Promise<Student> {
+    const authReq = CreateAuthRequest({ method: "GET" });
+    if (!authReq) throw new Error("Missing JWT token!");
+
+    const response = await fetch(`${API_BASE_URL}/api/Student/check-studentStatus`, authReq);
+    if (!response.ok) throw new Error(await response.text());
+    
+    return await response.json() as Student;
+}

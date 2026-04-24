@@ -34,6 +34,27 @@ public class StudentController : ControllerBase
         
         return Ok(student);
     }
+    
+    
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("check-studentStatus")]
+    public async Task<IActionResult> GetMyStudent()
+    {
+        var username = User.Identity?.Name;
+
+        if (username == null)
+            return Unauthorized();
+
+        var student = await _service.GetStudentByUsernameAsync(username);
+
+        if (student == null)
+            return NotFound("User is not a student");
+
+        return Ok(student);
+    }
+    
+    
 
     [HttpPost]
     public async Task<IActionResult> AddStudent(int id, string name, HouseType house, PetType pet, int roomId)
@@ -67,5 +88,21 @@ public class StudentController : ControllerBase
     {
         var newRoom = _service.AssignStudentToRoom(studentId, roomId);
         return Ok(newRoom);
+    }
+    
+    [Authorize(AuthenticationSchemes =  JwtBearerDefaults.AuthenticationScheme)]
+    [HttpPost("become-student")]
+    public async Task<IActionResult> BecomeStudent(CreateStudentRequest request)
+    {
+        var username = User.Identity?.Name;
+
+        if (username == null)
+            return BadRequest("username is null");
+        
+        
+        var student = await _service.BecomeStudentAsync(username, request);
+
+        return Ok(student);
+
     }
 }

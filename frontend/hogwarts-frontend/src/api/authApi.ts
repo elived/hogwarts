@@ -28,7 +28,7 @@ export const getUserByUsername = async (username: string) => {
     return user;
     
 }
-export const loginUser = async (userInfo: UserRoleInfo) => {
+export const loginUser = async (userInfo: UserInfo) => {
     const response = await fetch("api/Auth/login",
         {
             method: "POST",
@@ -47,7 +47,7 @@ export const loginUser = async (userInfo: UserRoleInfo) => {
 }
 
 export const registerUser = async (userInfo: UserInfo) => {
-    const response = await fetch("api/Auth/register",
+    const response = await fetch(`${API_BASE_URL}/api/Auth/register`,
         {
             method: "POST",
             headers: {
@@ -117,3 +117,22 @@ export const deleteUser = async (username: string): Promise<void> => {
     const response = await fetch(`${API_BASE_URL}/api/Auth/user/${username}`, authReq);
     if (!response.ok) throw new Error(await response.text());
 }
+
+
+
+export const hasStudentRelation = async (): Promise<boolean> => {
+    const authReq = CreateAuthRequest({ method: "GET" });
+    if (!authReq) throw new Error("Missing JWT token!");
+
+    const response = await fetch(
+        `${API_BASE_URL}/api/Auth/has-student-relation`,
+        authReq
+    );
+
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+
+    const data = await response.json() as { hasStudent: boolean };
+    return data.hasStudent;
+};

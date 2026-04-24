@@ -78,3 +78,13 @@ export const petLabels: Record<PetType, string> = {
     [PetType.Rat]: "Rat",
     [PetType.Owl]: "Owl"
 };
+
+export interface SortingAnswerHouse {
+    house: HouseType;
+}
+
+export interface CreateStudentRequest {
+    name: string;
+    pet: PetType;
+    answers: SortingAnswerHouse[];
+}

@@ -11,7 +11,7 @@ export function LoginPage() {
     const handleLogin = (userInfo: UserInfo) => {
         setError("");
         loginUser(userInfo).then(() => {
-            navigator("/");
+            navigator("/login/new-user");
         }).catch(() => {
             handleOnError("Invalid credentials");
         })

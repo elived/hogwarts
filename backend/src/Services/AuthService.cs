@@ -30,24 +30,24 @@ public class AuthService : IAuthService
         return await _context.Users
             .Select(u => new UserDto
             {
-                Username = u.Username,
+                Username = u.UserName,
                 Role = u.Role
             }).ToListAsync();
     }
     public async Task<UserDto?> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
-            .Where(u => u.Username == username)
+            .Where(u => u.UserName == username)
             .Select(u => new UserDto
             {
-                Username = u.Username,
+                Username = u.UserName,
                 Role = u.Role
             }).FirstOrDefaultAsync();
     }
     
     public async Task<string> LoginAsync(UserDto request)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == request.Username);
         if (user is null)
             return null;
 
@@ -62,13 +62,13 @@ public class AuthService : IAuthService
 
     public async Task<User?> RegisterAsync(UserDto request)
     {
-        if (await _context.Users.AnyAsync(u => u.Username == request.Username))
+        if (await _context.Users.AnyAsync(u => u.UserName == request.Username))
             return null;
 
         var user = new User();
         var hashedPassword = new PasswordHasher<User>().HashPassword(user, request.Password);
         
-        user.Username = request.Username;
+        user.UserName = request.Username;
         user.PasswordHash = hashedPassword;
         user.Role = "User";
 
@@ -82,7 +82,7 @@ public class AuthService : IAuthService
     {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Name, user.UserName),
             new Claim(ClaimTypes.Role, user.Role)
         };
 
@@ -102,7 +102,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> DeleteUserAsync(string username)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
 
         if (user == null)
             return false;
@@ -115,7 +115,7 @@ public class AuthService : IAuthService
     
     public async Task<bool> UpdateRoleAsync(string username, string newRole)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
 
         if (user == null)
             return false;
@@ -124,5 +124,10 @@ public class AuthService : IAuthService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<bool> UserHasStudentAsync(string username)
+    {
+        return await _context.Students.AnyAsync(s => s.User.UserName == username);
     }
 }
