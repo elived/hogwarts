@@ -12,6 +12,7 @@ namespace HogwartsHouses.Services
         Task <Room?> GetById(int id);
 
         Task <IEnumerable<Room>> Add(int id, string name, HouseType house, int maxCapacity);
+        Task<Room> AddRoom(CreateRoomRequest request);
 
         Task <Room?> Update(int id, string name, HouseType house, int maxCapacity);
 

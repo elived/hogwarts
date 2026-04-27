@@ -40,9 +40,14 @@ public class RoomsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(int id, string name, HouseType house, int maxCapacity)
+    public async Task<IActionResult> Add(CreateRoomRequest request)
     {
-        var result = await _service.Add(id, name, house, maxCapacity);
+        var result = await _service.AddRoom(new CreateRoomRequest
+        {
+            Name = request.Name,
+            House = request.House,
+            MaxCapacity = request.MaxCapacity
+        });
         return Ok(result);
     }
 

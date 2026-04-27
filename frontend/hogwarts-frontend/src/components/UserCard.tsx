@@ -23,6 +23,16 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
                     <h3 className="card-title">{username}</h3>
                     <h3>{role}</h3>
                 </div>
+                <p>Change role:</p>
+                <select
+                    className="delete-button"
+                    value={user.role}
+                    onChange={(event) => onRoleChange(user.username, event.target.value)}
+                >
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                <p>   </p>
                 {onDelete && (
                     <button
                         className="delete-button"
@@ -34,14 +44,7 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
                         Delete user
                     </button>
                 )}
-                <select
-                    className="delete-button"
-                    value={user.role}
-                    onChange={(event) => onRoleChange(user.username, event.target.value)}
-                >
-                     <option value="admin">Admin</option>
-                     <option value="user">User</option>   
-                </select>
+  
             </div>
         </div>
     );

@@ -13,7 +13,6 @@ namespace HogwartsHouses.Services
     public class RoomService : IRoomService
     {
         private readonly AppDbContext _db;
-        // private IRepository<Room> _repository { get; }
 
         public RoomService(AppDbContext db)
         {
@@ -55,6 +54,23 @@ namespace HogwartsHouses.Services
                 .ToListAsync();
 
         }
+        
+        public async Task<Room> AddRoom(CreateRoomRequest request)
+        {
+            
+            var room = new Room
+            {
+                Name = request.Name,
+                House = request.House,
+                MaxCapacity = request.MaxCapacity
+            };
+            _db.Rooms.Add(room);
+            await _db.SaveChangesAsync();
+
+
+            return room;
+        }
+         
 
         public async Task<Room?> Update(int id, string name, HouseType house, int maxCapacity)
         {

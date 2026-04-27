@@ -8,15 +8,28 @@ function RoomDetailsPage() {
     const [room, setRoom] = useState<Room | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    
-    useEffect(() => {
-        if (!id) return;
 
-        fetchRoomById(Number(id))  
+
+    useEffect(() => {
+        if (!id) {
+            setError("Missing room ID");
+            setLoading(false);
+            return;
+        }
+
+        const roomId = Number(id);
+        if (Number.isNaN(roomId)) {
+            setError("Invalid room ID");
+            setLoading(false);
+            return;
+        }
+
+        fetchRoomById(roomId)
             .then(setRoom)
             .catch(err => setError(err.message))
             .finally(() => setLoading(false));
     }, [id]);
+
 
 
     if (loading) return <p>Loading room…</p>;
