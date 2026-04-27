@@ -24,9 +24,7 @@ export const RoomCardDelete = ({ room, onDelete }: RoomCardProps) => {
                 />
                 <div className="room-info">
                     <h3 className="card-title">{room.Name}</h3>
-
-                    <p><strong>House:</strong> {houseName} <br/>
-                        <strong><br/>Capacity:</strong> {occupancy} / {room.MaxCapacity}</p>
+                       <p><strong>Occupancy:</strong> {occupancy} / {room.MaxCapacity} of students</p>
                 </div>
                 {onDelete && (
                     <button
