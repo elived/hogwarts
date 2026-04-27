@@ -68,7 +68,7 @@ export default function CreateRoomPage() {
                         value={house ?? ""}
                         onChange={(e) => setHouse(Number(e.target.value))}
                     >
-                        
+                        <option value="" disabled>Select house</option>
                         <option value={HouseType.Gryffindor}>Gryffindor</option>
                         <option value={HouseType.Hufflepuff}>Hufflepuff</option>
                         <option value={HouseType.Ravenclaw}>Ravenclaw</option>
