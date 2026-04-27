@@ -12,10 +12,6 @@ function SearchBar<T>({ onSearch, renderItem, showResults }: SearchBarProps<T>) 
     const [error, setError] = useState("");
     
     useEffect(() => {
-        if (!searchQuery) {
-            setData([]);
-            return;
-        }
         
         const fetchData = async () => {
             try {

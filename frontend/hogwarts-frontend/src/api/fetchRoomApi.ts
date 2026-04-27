@@ -76,6 +76,10 @@ export async function createRoom(room: Omit<Room, "Id">): Promise<Room> {
 
     const r = await response.json();
 
+
+    console.log("Created room from backend:", r); // ✅ TEMP DEBUG
+
+
     return {
         Id: r.id,
         Name: r.name,
