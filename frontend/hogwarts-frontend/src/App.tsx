@@ -3,7 +3,7 @@ import './App.css'
 import React from 'react';
 import HousesPage from "./pages/HousesPage.tsx";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage.tsx";
+import AboutPage from "./pages/AboutPage.tsx";
 import {Footer} from "./components/Footer.tsx";
 import {Header} from "./components/Header.tsx";
 import GryffindorPage from "./pages/GryffindorPage.tsx";
@@ -28,7 +28,7 @@ import ProfilePage from "./pages/ProfilePage.tsx";
 const App: React.FC = () => {
     const navLinks = [
         { text: 'Login',  url: '/login' },
-        { text: 'Home', url: '/' },
+        { text: 'About', url: '/' },
         { text: 'Houses', url: '/houses'},
         { text: 'Students', url: '/students'},
         { text: 'Rooms', url: '/rooms'},
@@ -49,7 +49,7 @@ const App: React.FC = () => {
               {/* ✅ PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                   <Route element={<ProtectedLayout links={navLinks} />}>
-                      <Route path="/" element={<HomePage />} />
+                      <Route path="/" element={<AboutPage />} />
                       <Route path="/houses" element={<HousesPage />} />
                       <Route path="/students" element={<StudentsPage />} />
                       <Route path="/rooms" element={<RoomsPage />} />

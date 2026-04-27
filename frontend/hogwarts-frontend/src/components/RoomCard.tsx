@@ -1,5 +1,6 @@
 ﻿import "./styles/RoomCardStyle.css";
 import "./styles/CardStyle.css";
+import "./styles/HouseCardStyle.css";
 
 import { useNavigate } from "react-router-dom";
 
