@@ -33,6 +33,7 @@ const App: React.FC = () => {
         { text: 'Students', url: '/students'},
         { text: 'Rooms', url: '/rooms'},
         {text: 'Profile', url: '/profile'},
+        {text: 'Become Student', url: '/become-student' },
         {text: 'Admin', url: '/admin' },
         { text: 'Logout', url: '/login', onClickAction: () => logoutUser() }
     ];

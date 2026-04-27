@@ -153,17 +153,34 @@ export default function BecomeStudentPage() {
 
     const [name, setName] = useState("");
     const [pet, setPet] = useState<PetType>(PetType.None);
-    const [answers, setAnswers] = useState<HouseType[]>([]);
+    const [answers, setAnswers] = useState<(HouseType | null)[]>(Array(questions.length).fill(null));
 
-    const answerQuestion = (house: HouseType) => {
-        setAnswers(prev => [...prev, house]);
+    function shuffle<T>(array: T[]): T[] {
+        return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    const [shuffledQuestions] = useState(() =>
+        questions.map(q => ({
+            ...q,
+            options: shuffle(q.options)
+        }))
+    );
+
+    const answerQuestion = (index: number, house: HouseType) => {
+        setAnswers(prev => {
+            const copy = [...prev];
+            copy[index] = house;
+            return copy;
+        });
     };
 
+
     const submit = async () => {
-        if (answers.length !== questions.length) {
+        if (answers.some(a => a === null)) {
             alert("Please answer all questions!");
             return;
         }
+
 
         const defaultNames = [
             "Unnamed Wizard",
@@ -178,7 +195,7 @@ export default function BecomeStudentPage() {
         const payload: CreateStudentRequest = {
             name: name.trim() || randomName,
             pet,
-            answers: answers.map(h => ({ house: h }))
+            answers: answers.map(h => ({ house: h! }))
         };
 
 
@@ -194,25 +211,35 @@ export default function BecomeStudentPage() {
     return (
         <div>
             <h1>Become a Hogwarts Student</h1>
-
-            <h3>Choose your student's name:</h3>
+            <p><br/>Welcome to Hogwarts School of Witchcraft and Wizardy. 
+                <br/>Before you can start using our site, you have to 
+                sign into our system so that you can be placed into the right house and be given a room. </p>
+            <p><br/></p>
+            <hr />
+            <h2><br/>Choose your name:</h2>
             <input
-                placeholder="Student name"
+                placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
+            <p><br/></p>
             <hr />
             <h2>The Sorting Hat</h2>
-            <h3>The quiz below will help the sorting hat choose which house you will belong to, so choose wisely</h3>
-            {questions.map((q, index) => (
+            <p>The quiz below will help the sorting hat choose which house you will belong to, so choose wisely</p>
+            {shuffledQuestions.map((q, index) => (
                 <div key={index}>
-                    <p> {q.question}</p>
+                    <h3> {q.question}</h3>
 
                     {q.options.map(opt => (
                         <button
+                            type="button"
                             key={opt.label}
-                            onClick={() => answerQuestion(opt.house)}
-                            disabled={answers.length > index}
+                            onClick={() => answerQuestion(index, opt.house)}
+                            style={{
+                                fontWeight:
+                                    answers[index] === opt.house ? "bold" : "normal",
+                                color: answers[index] === opt.house ? "green" : ""
+                            }}
                         >
                             {opt.label}
                         </button>
@@ -225,6 +252,8 @@ export default function BecomeStudentPage() {
             <hr />
             
             <h2>Choose a pet</h2>
+            <p>At Hogwarts it is a custom that students are allowed to own a pet. If this is something you wish, you 
+                can choose between cat, owl, rat or no pet at all. </p>
             <select
                 value={pet}
                 onChange={e => setPet(Number(e.target.value))}
@@ -234,11 +263,13 @@ export default function BecomeStudentPage() {
                 <option value={PetType.Owl}>Owl</option>
                 <option value={PetType.Rat}>Rat</option>
             </select>
-            
             <div>
                 <p><br/></p>
+                <hr />
+                <p><br/></p>
+                <h2>Finish Signing in</h2>
                 <button onClick={submit}>
-                    Finish Sorting 🎩
+                    Become a student
                 </button>
             </div>
             
