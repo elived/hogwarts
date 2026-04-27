@@ -28,3 +28,13 @@
     justify-items: center;
 }
 
+
+.student-list {
+    list-style: none;        /* ✅ remove bullet points */
+    padding: 0;              /* ✅ remove left indentation */
+    margin: 1rem 0;
+}
+
+.student-list li {
+    margin: 0.4rem 0;        /* ✅ even spacing between names */
+}
