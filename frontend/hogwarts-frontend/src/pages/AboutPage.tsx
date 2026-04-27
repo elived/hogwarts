@@ -13,7 +13,7 @@ function AboutPage()  {
         <>
             <main className="main">
                 <section className="intro">
-                    <h2>About Hogwarts</h2>
+                    <h1>About Hogwarts</h1>
 
                     <p>
                         Hogwarts School of Witchcraft and Wizardry is a legendary magical institution
@@ -41,10 +41,11 @@ function AboutPage()  {
                         and students are sorted into their respective houses upon arrival at Hogwarts. 
                         
                     </p>
+
                 </section>
 
                 <section className="intro">
-                    <h2>Life at Hogwarts</h2>
+                    <h2><br/>Life at Hogwarts</h2>
                     <p>
                         Life at Hogwarts is more than just lessons and exams. Students live in
                         their house dormitories, share meals in the Great Hall, and form friendships
@@ -55,6 +56,8 @@ function AboutPage()  {
                         attend magical feasts, and participate in house competitions that strengthen
                         house pride and camaraderie.
                     </p>
+                    <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
+
                 </section>
 
                 <section className="intro">
@@ -68,6 +71,8 @@ function AboutPage()  {
                         Popular subjects include Potions, Transfiguration, Charms, Defense Against the
                         Dark Arts, Herbology, and Care of Magical Creatures.
                     </p>
+                    <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
+
                 </section>
 
             </main>

@@ -215,7 +215,7 @@ export default function BecomeStudentPage() {
                 <br/>Before you can start using our site, you have to 
                 sign into our system so that you can be placed into the right house and be given a room. </p>
             <p><br/></p>
-            <hr />
+            <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
             <h2><br/>Choose your name:</h2>
             <input
                 placeholder="Name"
@@ -223,7 +223,7 @@ export default function BecomeStudentPage() {
                 onChange={(e) => setName(e.target.value)}
             />
             <p><br/></p>
-            <hr />
+            <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
             <h2>The Sorting Hat</h2>
             <p>The quiz below will help the sorting hat choose which house you will belong to, so choose wisely</p>
             {shuffledQuestions.map((q, index) => (
@@ -249,7 +249,7 @@ export default function BecomeStudentPage() {
                 </div>
             ))}
 
-            <hr />
+            <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
             
             <h2>Choose a pet</h2>
             <p>At Hogwarts it is a custom that students are allowed to own a pet. If this is something you wish, you 
@@ -265,7 +265,7 @@ export default function BecomeStudentPage() {
             </select>
             <div>
                 <p><br/></p>
-                <hr />
+                <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
                 <p><br/></p>
                 <h2>Finish Signing in</h2>
                 <button onClick={submit}>
