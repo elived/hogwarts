@@ -1,5 +1,5 @@
 ﻿import "./styles/NavbarStyle.css";
-import {useNavigate, useLocation, Outlet, Navigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 
 type NavLink = {
@@ -13,27 +13,17 @@ type NavbarProps = {
 };
 
 
-export const AdminRoute = () => {
-    const role = localStorage.getItem("role");
-    const isAdmin = role === "ADMIN";
-
-    return isAdmin ? <Outlet /> : <Navigate to="/" replace />;
-};
-
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
     const navigator = useNavigate();
     const location = useLocation();
 
-    const role = localStorage.getItem("role");
-    const isAdmin = role === "ADMIN";
 
 
     const isLoggedIn = !!localStorage.getItem("authToken");
     const visibleLinks = links.filter(link => {
         if (link.text === "Login" && isLoggedIn) return false;
         if (link.text === "Logout" && !isLoggedIn) return false;
-        if (link.text === "Admin" && !isAdmin) return false;
         return true;
     })
     

@@ -66,15 +66,18 @@ public class AuthController(IAuthService authService) : ControllerBase
     //[Authorize]
     public async Task<IActionResult> DeleteAccount(string username)
     {
-        if (username == null)
-            return Unauthorized();
+        try
+        {
+            var result = await authService.DeleteUserAsync(username);
+            if (!result)
+                return NotFound("User not found");
 
-        var result = await authService.DeleteUserAsync(username);
-
-        if (!result)
-            return NotFound("User not found");
-
-        return Ok("User deleted");
+            return Ok("User deleted");
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
     
     [HttpPatch("{username}/role")]

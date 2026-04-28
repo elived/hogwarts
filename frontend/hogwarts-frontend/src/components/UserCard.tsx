@@ -29,8 +29,8 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
                     value={user.role}
                     onChange={(event) => onRoleChange(user.username, event.target.value)}
                 >
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                    <option className="drop-down-option" value="admin">Admin</option>
+                    <option className="drop-down-option" value="user">User</option>
                 </select>
                 <p>   </p>
                 {onDelete && (

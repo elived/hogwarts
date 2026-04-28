@@ -219,6 +219,7 @@ export default function BecomeStudentPage() {
             <h2><br/>Choose your name:</h2>
             <input
                 placeholder="Name"
+                className="auth-form"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
@@ -257,21 +258,20 @@ export default function BecomeStudentPage() {
             <p>At Hogwarts it is a custom that students are allowed to own a pet. If this is something you wish, you 
                 can choose between cat, owl, rat or no pet at all. </p>
             <select
-                className="drop-down"
                 value={pet}
                 onChange={e => setPet(Number(e.target.value))}
             >
-                <option value={PetType.None}>None</option>
-                <option value={PetType.Cat}>Cat</option>
-                <option value={PetType.Owl}>Owl</option>
-                <option value={PetType.Rat}>Rat</option>
+                <option className="drop-down-option" value={PetType.None}>None</option>
+                <option className="drop-down-option" value={PetType.Cat}>Cat</option>
+                <option className="drop-down-option" value={PetType.Owl}>Owl</option>
+                <option className="drop-down-option" value={PetType.Rat}>Rat</option>
             </select>
             <div>
                 <p><br/></p>
                 <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
                 <p><br/></p>
                 <h2>Finish Signing in</h2>
-                <button className="answer-button"
+                <button className="auth-form-button"
                             onClick={submit}>
                     Become a student
                 </button>

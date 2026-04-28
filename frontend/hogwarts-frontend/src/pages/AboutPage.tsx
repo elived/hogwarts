@@ -75,6 +75,13 @@ function AboutPage()  {
 
                 </section>
 
+                <div className="container flex-center" style={{ flexDirection: 'column', height: '50vh' }}>
+                    <h2>Support Our Students!</h2>
+                    <p>Help us provide the best experience for our students by sponsoring their education and activities.</p>
+                    <a href="https://buymeacoffee.com/elinevedeler" target="_blank" rel="noopener noreferrer" className="auth-form-button">
+                        Become a Sponsor
+                    </a>
+                </div>
             </main>
         </>
     )
