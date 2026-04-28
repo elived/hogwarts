@@ -1,5 +1,4 @@
-﻿import {HouseType, PetType, type Student} from "../types";
-import type { Room } from "../types";
+﻿import {HouseType, PetType, type Room, type Student} from "../types";
 import {CreateAuthRequest} from "./authApi.ts";
 import {API_BASE_URL} from "../config/api.ts";
 
@@ -22,6 +21,27 @@ export async function fetchStudents(): Promise<Student[]> {
         RoomId: s.roomId,
         Room: s.room as Room
     }));
+}
+
+export async function fetchStudentById(id: number): Promise<Student> {
+    const response = await fetch(`/api/Student/${id}`);
+
+    if (!response.ok) {
+        throw new Error(
+            `Fetch Student by id failed: ${response.status} ${response.statusText}`
+        );
+    }
+
+    const r = await response.json();
+
+    return {
+        Id: r.id,
+        Name: r.name,
+        House: r.house as HouseType,
+        Pet: r.pet as PetType,
+        RoomId: r.roomId,
+        Room: r.room as Room
+    };
 }
 
 export async function deleteStudent(id: number): Promise<void> {

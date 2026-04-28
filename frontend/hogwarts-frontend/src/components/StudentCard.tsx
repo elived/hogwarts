@@ -5,6 +5,7 @@ import "./styles/CardStyle.css";
 import type {Student} from "../types";
 
 import { houseLabels, houseIcons } from "../types";
+import {useNavigate} from "react-router-dom";
 
 interface StudentCardProps {
     student: Student;
@@ -15,9 +16,11 @@ export const StudentCard = ({ student }: StudentCardProps) => {
     const houseName = houseLabels[student.House];
     const houseIcon = houseIcons[student.House];
     const studentName = student.Name;
+    const navigate = useNavigate();
 
     return (
-        <div className="card">
+        <div className="card"
+        onClick={() => navigate(`/students/${student.Id}`)}>
             <div className="room">
                 <img
                     src={houseIcon}

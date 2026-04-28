@@ -30,7 +30,7 @@ export const StudentCardDelete = ({ student, onDelete }: StudentCardProps) => {
                 </div>
                 {onDelete && (
                         <button
-                            className="delete-button"
+                            className="button-style"
                             onClick={(e) => {
                             e.stopPropagation();
                             onDelete(student);

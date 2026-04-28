@@ -35,10 +35,12 @@ export function LoginPage() {
                     submitLabel="Login"
                 >
                     <div>
-                        <span className="form-toggle-text">Don't have an account?</span>
+                        <p><br/></p>
+                        <span className="form-toggle-text">Don't have an account?<br/></span>
+                        
                         <button
                             type="button"
-                            className="form-link form-toggle-btn"
+                            className="auth-form-button"
                             onClick={handleRegisterClick}
                         >
                             Register

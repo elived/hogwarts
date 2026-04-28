@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {becomeStudent} from "../api/fetchStudentApi.ts";
-
+import "../components/styles/ButtonStyle.css"
 
 type Question = {
     question: string;
@@ -215,41 +215,44 @@ export default function BecomeStudentPage() {
                 <br/>Before you can start using our site, you have to 
                 sign into our system so that you can be placed into the right house and be given a room. </p>
             <p><br/></p>
-            <hr />
+            <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
             <h2><br/>Choose your name:</h2>
             <input
                 placeholder="Name"
+                className="auth-form"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
             <p><br/></p>
-            <hr />
+            <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
             <h2>The Sorting Hat</h2>
             <p>The quiz below will help the sorting hat choose which house you will belong to, so choose wisely</p>
             {shuffledQuestions.map((q, index) => (
                 <div key={index}>
                     <h3> {q.question}</h3>
+                    <div className="answer-grid">
+                        {q.options.map(opt => (
+                            <button
+                                type="button"
 
-                    {q.options.map(opt => (
-                        <button
-                            type="button"
-                            key={opt.label}
-                            onClick={() => answerQuestion(index, opt.house)}
-                            style={{
-                                fontWeight:
-                                    answers[index] === opt.house ? "bold" : "normal",
-                                color: answers[index] === opt.house ? "green" : ""
-                            }}
-                        >
-                            {opt.label}
-                        </button>
-                        
-                    ))}
+                                className={
+                                    "answer-button" +
+                                    (answers[index] === opt.house ? " selected" : "")
+                                }
+                                key={opt.label}
+                                onClick={() => answerQuestion(index, opt.house)}
+                            >
+                                {opt.label}
+                            </button>
+
+                        ))}
+                    </div>
+                    
                     <p> <br/> </p>
                 </div>
             ))}
 
-            <hr />
+            <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
             
             <h2>Choose a pet</h2>
             <p>At Hogwarts it is a custom that students are allowed to own a pet. If this is something you wish, you 
@@ -258,17 +261,18 @@ export default function BecomeStudentPage() {
                 value={pet}
                 onChange={e => setPet(Number(e.target.value))}
             >
-                <option value={PetType.None}>None</option>
-                <option value={PetType.Cat}>Cat</option>
-                <option value={PetType.Owl}>Owl</option>
-                <option value={PetType.Rat}>Rat</option>
+                <option className="drop-down-option" value={PetType.None}>None</option>
+                <option className="drop-down-option" value={PetType.Cat}>Cat</option>
+                <option className="drop-down-option" value={PetType.Owl}>Owl</option>
+                <option className="drop-down-option" value={PetType.Rat}>Rat</option>
             </select>
             <div>
                 <p><br/></p>
-                <hr />
+                <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
                 <p><br/></p>
                 <h2>Finish Signing in</h2>
-                <button onClick={submit}>
+                <button className="auth-form-button"
+                            onClick={submit}>
                     Become a student
                 </button>
             </div>

@@ -1,5 +1,6 @@
 ﻿import "./styles/RoomCardStyle.css";
 import "./styles/CardStyle.css";
+import "./styles/HouseCardStyle.css";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,8 +30,7 @@ export const RoomCard = ({ room }: RoomCardProps) => {
                 <div className="room-info">
                     <h3 className="card-title">{room.Name}</h3>
 
-                    <p><strong>House:</strong> {houseName} <br/>
-                        <strong><br/>Capacity:</strong> {occupancy} / {room.MaxCapacity}</p>
+                    <p><strong><br/>Capacity:</strong> {occupancy} / {room.MaxCapacity}</p>
                 </div>
             </div>
         </div>

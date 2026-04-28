@@ -39,14 +39,14 @@ export function AuthForm({ onError, onSuccess, submitLabel = "Submit", children,
             <h2 className="form-title">{submitLabel}</h2>
             <div className="form-input-group">
                 <input
-                    className="form-input"
+                    className="auth-form"
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(event) => setUsername(event.target.value.trim())}
                 />
                 <input
-                    className="form-input"
+                    className="auth-form"
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -54,7 +54,7 @@ export function AuthForm({ onError, onSuccess, submitLabel = "Submit", children,
                 />
             </div>
 
-            <button type="submit" className="form-button">{submitLabel}</button>
+            <button type="submit" className="auth-form-button">{submitLabel}</button>
 
             {children && (
                 <div style={{ marginTop: '16px', width: '100%', textAlign: 'center' }}>
