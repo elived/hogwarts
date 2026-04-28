@@ -5,6 +5,7 @@ import "../components/styles/CardStyle.css";
 import SearchBar from "../components/SearchBar.tsx";
 import {RoomCardDelete} from "../components/RoomCardDelete.tsx";
 import {useNavigate} from "react-router-dom";
+import "../components/styles/ButtonStyle.css"
 
 function RoomsPageDelete() {
     const [rooms, setRooms] = useState<Room[]>([]);
@@ -39,7 +40,7 @@ function RoomsPageDelete() {
         <main className="main">
             <h2>All the Rooms of Hogwarts</h2>
             <button
-                onClick={() => {navigate('/admin/create-room')}}>
+                className="button-style" onClick={() => {navigate('/admin/create-room')}}>
                 Create a new room
             </button>
             <p> <br/> </p>

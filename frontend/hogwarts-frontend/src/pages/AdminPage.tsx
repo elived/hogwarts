@@ -3,6 +3,7 @@ import "../styles/HomePageStyle.css";
 import UserPage from "./UserPage.tsx";
 import RoomsPageDelete from "./RoomPageDelete.tsx";
 import StudentDeletePage from "./StudentDeletePage.tsx";
+import "../components/styles/ButtonStyle.css"
 
 
 function AdminPage() {

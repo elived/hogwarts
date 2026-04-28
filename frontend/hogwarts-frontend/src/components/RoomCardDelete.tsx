@@ -28,7 +28,7 @@ export const RoomCardDelete = ({ room, onDelete }: RoomCardProps) => {
                 </div>
                 {onDelete && (
                     <button
-                        className="delete-button"
+                        className="button-style"
                         onClick={(e) => {
                             e.stopPropagation();
                             onDelete(room);

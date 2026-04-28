@@ -49,9 +49,9 @@ function RoomDetailsPage() {
             <h2>{room.Name}</h2>
 
             <p>
-                <strong>Capacity:</strong> {occupants} / {room.MaxCapacity}
+                
                 <br />
-                <strong>Available spots:</strong> {remainingCapacity}
+                <strong>Available beds:</strong> {remainingCapacity}
             </p>
             <br/>
             <img src={houseIcons[room.House as HouseType]} alt={houseLabels[room.House as HouseType]} className="custom-list-img"/>

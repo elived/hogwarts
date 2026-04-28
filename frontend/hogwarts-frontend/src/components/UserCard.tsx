@@ -25,7 +25,7 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
                 </div>
                 <p>Change role:</p>
                 <select
-                    className="delete-button"
+                    className="drop-down"
                     value={user.role}
                     onChange={(event) => onRoleChange(user.username, event.target.value)}
                 >
@@ -35,7 +35,7 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
                 <p>   </p>
                 {onDelete && (
                     <button
-                        className="delete-button"
+                        className="button-style"
                         onClick={(e) => {
                             e.stopPropagation();
                             onDelete(user);

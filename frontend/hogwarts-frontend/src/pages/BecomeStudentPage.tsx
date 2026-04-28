@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {becomeStudent} from "../api/fetchStudentApi.ts";
-
+import "../components/styles/ButtonStyle.css"
 
 type Question = {
     question: string;
@@ -229,22 +229,24 @@ export default function BecomeStudentPage() {
             {shuffledQuestions.map((q, index) => (
                 <div key={index}>
                     <h3> {q.question}</h3>
+                    <div className="answer-grid">
+                        {q.options.map(opt => (
+                            <button
+                                type="button"
 
-                    {q.options.map(opt => (
-                        <button
-                            type="button"
-                            key={opt.label}
-                            onClick={() => answerQuestion(index, opt.house)}
-                            style={{
-                                fontWeight:
-                                    answers[index] === opt.house ? "bold" : "normal",
-                                color: answers[index] === opt.house ? "green" : ""
-                            }}
-                        >
-                            {opt.label}
-                        </button>
-                        
-                    ))}
+                                className={
+                                    "answer-button" +
+                                    (answers[index] === opt.house ? " selected" : "")
+                                }
+                                key={opt.label}
+                                onClick={() => answerQuestion(index, opt.house)}
+                            >
+                                {opt.label}
+                            </button>
+
+                        ))}
+                    </div>
+                    
                     <p> <br/> </p>
                 </div>
             ))}
@@ -255,6 +257,7 @@ export default function BecomeStudentPage() {
             <p>At Hogwarts it is a custom that students are allowed to own a pet. If this is something you wish, you 
                 can choose between cat, owl, rat or no pet at all. </p>
             <select
+                className="drop-down"
                 value={pet}
                 onChange={e => setPet(Number(e.target.value))}
             >
@@ -268,7 +271,8 @@ export default function BecomeStudentPage() {
                 <img src="/images/hogwarts_crest.png" alt={`slytherin icon`} className="custom-list-img"/>
                 <p><br/></p>
                 <h2>Finish Signing in</h2>
-                <button onClick={submit}>
+                <button className="answer-button"
+                            onClick={submit}>
                     Become a student
                 </button>
             </div>

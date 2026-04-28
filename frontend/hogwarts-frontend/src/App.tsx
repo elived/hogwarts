@@ -24,6 +24,8 @@ import CreateRoomPage from "./pages/CreateRoomPage.tsx";
 import BecomeStudentPage from "./pages/BecomeStudentPage.tsx";
 import NewUserPage from "./pages/NewUserPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
+import SponsorMePage from "./pages/SponsorMePage.tsx";
+import {AdminRoute} from "./components/Navbar.tsx";
 
 const App: React.FC = () => {
     const navLinks = [
@@ -33,9 +35,10 @@ const App: React.FC = () => {
         { text: 'Students', url: '/students'},
         { text: 'Rooms', url: '/rooms'},
         {text: 'Profile', url: '/profile'},
-        {text: 'Become Student', url: '/become-student' },
         {text: 'Admin', url: '/admin' },
+        {text: 'Sponsor me', url: '/sponsor'},
         { text: 'Logout', url: '/login', onClickAction: () => logoutUser() }
+       
     ];
     
   //const [house, setHouse] = useState<string | null>(null)
@@ -54,19 +57,24 @@ const App: React.FC = () => {
                       <Route path="/students" element={<StudentsPage />} />
                       <Route path="/rooms" element={<RoomsPage />} />
                       <Route path="/rooms/:id" element={<RoomDetailsPage />} />
-                      <Route path='/admin' element={<AdminPage />} />
+                     
                       
                       <Route path='/login/new-user' element={<NewUserPage />} />
                       <Route path='/become-student' element={<BecomeStudentPage />} />
                       <Route path='/profile' element={<ProfilePage />} />
+                      <Route path='/sponsor' element={<SponsorMePage />} />
 
                       <Route path="/houses/gryffindor" element={<GryffindorPage />} />
                       <Route path="/houses/hufflepuff" element={<HufflepuffPage />} />
                       <Route path="/houses/ravenclaw" element={<RavenclawPage />} />
                       <Route path="/houses/slytherin" element={<SlytherinPage />} />
-                      
-                      <Route path="/admin/create-room" element={<CreateRoomPage />} />
-                  </Route>
+
+
+                      <Route element={<AdminRoute />}>
+                          <Route path="/admin" element={<AdminPage />} />
+                          <Route path="/admin/create-room" element={<CreateRoomPage />} />
+                      </Route>
+                      </Route>
               </Route>
 
               {/* ✅ PUBLIC ROUTES */}

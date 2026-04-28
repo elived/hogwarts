@@ -30,7 +30,7 @@ function SearchBar<T>({ onSearch, renderItem, showResults }: SearchBarProps<T>) 
         <div>
             <input
                 type="text"
-                placeholder="search..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
