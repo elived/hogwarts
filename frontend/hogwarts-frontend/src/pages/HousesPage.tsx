@@ -12,8 +12,9 @@ function HousesPage() {
             <main className="main">
                 <section className="houses">
                     <h2>The Houses of Hogwarts</h2>
+                    <p>Click the cards to learn more!</p>
                     <div>
-
+                        
                         <Card
                             house={HouseType.Gryffindor}
                             onClick={(house) => 

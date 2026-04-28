@@ -1,8 +1,7 @@
 ﻿import "./styles/RoomCardStyle.css";
 import "./styles/CardStyle.css";
-
-
 import type { UserRoleInfo} from "../types";
+
 
 
 interface UserCardProps {
@@ -16,26 +15,28 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
     const username = user.username;
     const role = user.role;
 
+    
     return (
         <div className="card">
             <div className="room">
                 <div className="room-info">
                     <h3 className="card-title">{username}</h3>
                     <h3>{role}</h3>
+                    
                 </div>
                 <p>Change role:</p>
                 <select
-                    className="delete-button"
+                    className="drop-down"
                     value={user.role}
                     onChange={(event) => onRoleChange(user.username, event.target.value)}
                 >
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                    <option className="drop-down-option" value="admin">Admin</option>
+                    <option className="drop-down-option" value="user">User</option>
                 </select>
                 <p>   </p>
                 {onDelete && (
                     <button
-                        className="delete-button"
+                        className="button-style"
                         onClick={(e) => {
                             e.stopPropagation();
                             onDelete(user);

@@ -102,10 +102,14 @@ public class AuthService : IAuthService
 
     public async Task<bool> DeleteUserAsync(string username)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+        var user = await _context.Users
+            .Include(u => u.Student)
+            .FirstOrDefaultAsync(u => u.UserName == username);
 
-        if (user == null)
-            return false;
+        
+        if (user.Student != null)
+            throw new InvalidOperationException("User has related student data");
+
 
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();

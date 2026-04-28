@@ -12,10 +12,14 @@ type NavbarProps = {
     links: NavLink[];
 };
 
+
+
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
     const navigator = useNavigate();
     const location = useLocation();
-    
+
+
+
     const isLoggedIn = !!localStorage.getItem("authToken");
     const visibleLinks = links.filter(link => {
         if (link.text === "Login" && isLoggedIn) return false;

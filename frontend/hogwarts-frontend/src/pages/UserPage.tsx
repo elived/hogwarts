@@ -27,15 +27,6 @@ function UserPage() {
         setFilteredUsers(result);
         return result;
     }
-    /*
-        const updateStoredInfo = () => {
-        fetchAllUsers().then(res => {
-            setUsers(res.sort((a: { id: number; }, b: { id: number; }) => a.id - b.id));
-        });
-    }
-    * */
-
-
 
     const handleRoleChange = async (username: string, role: string) => {
         setUsers(prev =>

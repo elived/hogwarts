@@ -1,7 +1,9 @@
 ﻿import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {houseLabels, type Room} from "../types";
+import {houseIcons, houseLabels, HouseType, type Room} from "../types";
 import {fetchRoomById} from "../api/fetchRoomApi.ts";
+import "../styles/HomePageStyle.css";
+
 
 function RoomDetailsPage() {
     const { id } = useParams(); // ← gets ":id" from URL
@@ -36,15 +38,26 @@ function RoomDetailsPage() {
     if (error) return <p>Error: {error}</p>;
     if (!room) return <p>Room not found</p>;
 
-    const houseName = houseLabels[room.House];
-
+    //const houseName = houseLabels[room.House];
+    const occupants = room.Students.length;
+    const remainingCapacity = room.MaxCapacity - occupants;
+    
     return (
         <main className="main">
-            <h2>{room.Name}</h2>
-            <p>House: {houseName}</p>
+            <img src={houseIcons[room.House as HouseType]} alt={houseLabels[room.House as HouseType]} className="custom-list-img"/>
 
-            <h3>Students</h3>
-            <ul>
+            <h2>{room.Name}</h2>
+
+            <p>
+                
+                <br />
+                <strong>Available beds:</strong> {remainingCapacity}
+            </p>
+            <br/>
+            <img src={houseIcons[room.House as HouseType]} alt={houseLabels[room.House as HouseType]} className="custom-list-img"/>
+
+            <h3><br/>Students</h3>
+            <ul className="student-list">
                 {room.Students.length === 0 ? (
                     <li key="no-students">No students assigned</li>
                 ) : (
