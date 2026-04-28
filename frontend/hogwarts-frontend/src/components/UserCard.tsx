@@ -1,8 +1,7 @@
 ﻿import "./styles/RoomCardStyle.css";
 import "./styles/CardStyle.css";
-
-
 import type { UserRoleInfo} from "../types";
+
 
 
 interface UserCardProps {
@@ -16,12 +15,14 @@ export const UserCard = ({ user, onDelete, onRoleChange }: UserCardProps) => {
     const username = user.username;
     const role = user.role;
 
+    
     return (
         <div className="card">
             <div className="room">
                 <div className="room-info">
                     <h3 className="card-title">{username}</h3>
                     <h3>{role}</h3>
+                    
                 </div>
                 <p>Change role:</p>
                 <select

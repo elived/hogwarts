@@ -2,6 +2,8 @@
 import {useNavigate} from "react-router-dom";
 import {createRoom} from "../api/fetchRoomApi.ts";
 import {HouseType} from "../types.ts";
+import "../components/styles/ButtonStyle.css"
+
 
 export default function CreateRoomPage() {
     const [name, setName] = useState("");
@@ -59,33 +61,36 @@ export default function CreateRoomPage() {
                 <div className="form-group">
                     <input
                         type="text"
+                        className="auth-form"
                         placeholder="Room name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                     
-                    <select
-                        value={house ?? ""}
-                        onChange={(e) => setHouse(Number(e.target.value))}
-                    >
-                        <option value="" disabled>Select house</option>
-                        <option value={HouseType.Gryffindor}>Gryffindor</option>
-                        <option value={HouseType.Hufflepuff}>Hufflepuff</option>
-                        <option value={HouseType.Ravenclaw}>Ravenclaw</option>
-                        <option value={HouseType.Slytherin}>Slytherin</option>
-                    </select>
-                    
                     <input
                         type="number"
+                        className="auth-form"
                         min={1}
                         placeholder="Max capacity"
                         value={maxCapacity}
                         onChange={(e) => setMaxCapacity(Number(e.target.value))}
                     />
+                    
+                    <select
+                        value={house ?? ""}
+                        className="drop-down"
+                        onChange={(e) => setHouse(Number(e.target.value))}
+                    >
+                        <option  className="drop-down-option" value="" disabled>Select house</option>
+                        <option  className="drop-down-option" value={HouseType.Gryffindor}>Gryffindor</option>
+                        <option  className="drop-down-option" value={HouseType.Hufflepuff}>Hufflepuff</option>
+                        <option  className="drop-down-option" value={HouseType.Ravenclaw}>Ravenclaw</option>
+                        <option  className="drop-down-option" value={HouseType.Slytherin}>Slytherin</option>
+                    </select>
                 </div>
 
                 {error && <p>{error}</p>}
-                <button type="submit" >
+                <button type="submit" className="button-style">
                     {loading ? "Creating..." : "Create Room"}
                 </button>
             </form>

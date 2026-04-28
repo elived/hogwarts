@@ -24,6 +24,7 @@ import CreateRoomPage from "./pages/CreateRoomPage.tsx";
 import BecomeStudentPage from "./pages/BecomeStudentPage.tsx";
 import NewUserPage from "./pages/NewUserPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
+import StudentDetailsPage from "./pages/StudentsDetailsPage.tsx";
 
 const App: React.FC = () => {
     const navLinks = [
@@ -54,6 +55,7 @@ const App: React.FC = () => {
                       <Route path="/students" element={<StudentsPage />} />
                       <Route path="/rooms" element={<RoomsPage />} />
                       <Route path="/rooms/:id" element={<RoomDetailsPage />} />
+                      <Route path="/students/:id" element={<StudentDetailsPage />} />
                       
                       <Route path='/login/new-user' element={<NewUserPage />} />
                       <Route path='/become-student' element={<BecomeStudentPage />} />

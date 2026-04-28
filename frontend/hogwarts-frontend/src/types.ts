@@ -22,7 +22,8 @@ export interface JwtTokenClaims {
 export interface UserRoleInfo {
     id: number,
     username: string,
-    role: string
+    role: string,
+    Student?: Student
 }
 
 export type Room = {
@@ -39,7 +40,13 @@ export type Student = {
     House : HouseType;
     Pet : PetType;
     RoomId : number;
-    Room : Room;
+    Room?: {
+        Id : number;
+        Name : string;
+        House : HouseType;
+        MaxCapacity : number;
+        Students : Student[];
+    }
 }
 
 
