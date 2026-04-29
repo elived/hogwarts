@@ -3071,11 +3071,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EVedel\\RiderProjects\\hogwarts-houses-1-csharp-elived\\backend\\src\\HogwartsHouses.csproj",
+      "projectUniqueName": "C:\\Users\\EVedel\\RiderProjects\\hogwarts\\backend\\src\\HogwartsHouses.csproj",
       "projectName": "HogwartsHouses",
-      "projectPath": "C:\\Users\\EVedel\\RiderProjects\\hogwarts-houses-1-csharp-elived\\backend\\src\\HogwartsHouses.csproj",
+      "projectPath": "C:\\Users\\EVedel\\RiderProjects\\hogwarts\\backend\\src\\HogwartsHouses.csproj",
       "packagesPath": "C:\\Users\\EVedel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EVedel\\RiderProjects\\hogwarts-houses-1-csharp-elived\\backend\\src\\obj\\",
+      "outputPath": "C:\\Users\\EVedel\\RiderProjects\\hogwarts\\backend\\src\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\EVedel\\AppData\\Roaming\\NuGet\\NuGet.Config"
