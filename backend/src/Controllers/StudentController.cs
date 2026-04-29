@@ -19,12 +19,14 @@ public class StudentController : ControllerBase
         _service = service;
     }
 
+    
     [HttpGet]
     public async Task<IActionResult> GetAllStudents()
     {
         var students = await _service.GetAllStudents();
         return Ok(students);
     }
+    
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetStudentById(int id)
@@ -34,7 +36,6 @@ public class StudentController : ControllerBase
         
         return Ok(student);
     }
-    
     
     
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -55,7 +56,6 @@ public class StudentController : ControllerBase
     }
     
     
-
     [HttpPost]
     public async Task<IActionResult> AddStudent(int id, string name, HouseType house, PetType pet, int roomId)
     {
@@ -70,26 +70,8 @@ public class StudentController : ControllerBase
         if (updated == null) return NotFound($"Student {id} is not found");
         return Ok(updated);
     }
-
-    [Authorize(
-        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
-        Roles = "Admin"
-    )]
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> RemoveStudent(int id)
-    {
-        var removed = await _service.RemoveStudent(id);
-        if (removed == null) return NotFound($"Student {id} is not found");
-        return Ok(removed);
-    }
-
-    [HttpPatch("{id:int}/assign-new-room")]
-    public async Task<IActionResult> AssignStudentToRoom(int studentId, int roomId)
-    {
-        var newRoom = _service.AssignStudentToRoom(studentId, roomId);
-        return Ok(newRoom);
-    }
     
+
     [Authorize(AuthenticationSchemes =  JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost("become-student")]
     public async Task<IActionResult> BecomeStudent(CreateStudentRequest request)
@@ -104,5 +86,18 @@ public class StudentController : ControllerBase
 
         return Ok(student);
 
+    }
+    
+    
+    [Authorize(
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,
+        Roles = "Admin"
+    )]
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> RemoveStudent(int id)
+    {
+        var removed = await _service.RemoveStudent(id);
+        if (removed == null) return NotFound($"Student {id} is not found");
+        return Ok(removed);
     }
 }

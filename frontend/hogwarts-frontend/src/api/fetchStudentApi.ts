@@ -44,14 +44,6 @@ export async function fetchStudentById(id: number): Promise<Student> {
     };
 }
 
-export async function deleteStudent(id: number): Promise<void> {
-    const authReq = CreateAuthRequest({ method: "DELETE" });
-    if (!authReq) throw new Error("Missing JWT token!");
-
-    const response = await fetch(`${API_BASE_URL}/api/Student/${id}`, authReq);
-    if (!response.ok) throw new Error(await response.text());
-    
-}
 
 export async function becomeStudent(
     payload: {
@@ -92,4 +84,13 @@ export async function checkStudentStatus(): Promise<Student> {
     if (!response.ok) throw new Error(await response.text());
     
     return await response.json() as Student;
+}
+
+export async function deleteStudent(id: number): Promise<void> {
+    const authReq = CreateAuthRequest({ method: "DELETE" });
+    if (!authReq) throw new Error("Missing JWT token!");
+
+    const response = await fetch(`${API_BASE_URL}/api/Student/${id}`, authReq);
+    if (!response.ok) throw new Error(await response.text());
+
 }
