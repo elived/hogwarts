@@ -35,9 +35,9 @@ export function AuthForm({ onError, onSuccess, submitLabel = "Submit", children,
     }
 
     return (
-        <form onSubmit={handleSubmit} className="form-container">
-            <h2 className="form-title">{submitLabel}</h2>
-            <div className="form-input-group">
+        <form onSubmit={handleSubmit} >
+            <h1>{submitLabel}</h1>
+            <div >
                 <input
                     className="auth-form"
                     type="text"

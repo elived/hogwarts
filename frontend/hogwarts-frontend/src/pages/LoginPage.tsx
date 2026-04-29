@@ -27,8 +27,8 @@ export function LoginPage() {
     }
 
     return (
-        <div className="form-page-container">
-            <div className="form-wrapper">
+        <div>
+            <div>
                 <AuthForm
                     onError={handleOnError}
                     onSuccess={handleLogin}
@@ -36,7 +36,7 @@ export function LoginPage() {
                 >
                     <div>
                         <p><br/></p>
-                        <span className="form-toggle-text">Don't have an account?<br/></span>
+                        <span>Don't have an account?<br/></span>
                         
                         <button
                             type="button"

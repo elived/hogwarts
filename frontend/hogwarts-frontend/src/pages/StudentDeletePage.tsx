@@ -30,7 +30,7 @@ function StudentDeletePage() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <main className="main">
+        <main>
             <h2>All Students of Hogwarts</h2>
             <SearchBar<Student>
                 onSearch={searchStudent}

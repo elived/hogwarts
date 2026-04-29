@@ -1,5 +1,3 @@
-using HogwartsHouses.DAL;
-using HogwartsHouses.Models;
 using HogwartsHouses.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +20,7 @@ namespace HogwartsHouses
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
+            //services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
             services.AddTransient<IRoomService, RoomService>();
         }
 

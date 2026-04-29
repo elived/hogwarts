@@ -1,5 +1,4 @@
-﻿//import { useState } from 'react'
-
+﻿
 import "../styles/HomePageStyle.css";
 import {houseIcons, houseLabels, HouseType} from "../types.ts";
 

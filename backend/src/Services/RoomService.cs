@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HogwartsHouses.DAL;
 using HogwartsHouses.Data;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
@@ -33,27 +32,6 @@ namespace HogwartsHouses.Services
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public async Task<IEnumerable<Room>> Add(int id, string name, HouseType house, int maxCapacity)
-        {
-            bool idExists = await _db.Rooms.AnyAsync(r => r.Id == id);
-            if (idExists) throw new InvalidOperationException($"A room with {id} already exists.");
-            
-            var room = new Room
-            {
-                Id = id,
-                Name = name,
-                House = house,
-                MaxCapacity = maxCapacity
-            };
-            _db.Rooms.Add(room);
-            await _db.SaveChangesAsync();
-            
-            
-            return await _db.Rooms
-                .Include(r => r.Students)
-                .ToListAsync();
-
-        }
         
         public async Task<Room> AddRoom(CreateRoomRequest request)
         {
@@ -95,27 +73,5 @@ namespace HogwartsHouses.Services
             return room;
         }
 
-        public async Task<IEnumerable<Room>> GetAvailableRooms()
-        {
-            return await _db.Rooms
-                .Include(r => r.Students)
-                .Where(r => r.Students.Count < r.MaxCapacity)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Room>> GetRatSafeRooms(HouseType? house, bool onlyWithFreeSpace = false)
-        {
-            var query = _db.Rooms
-                .Include(r => r.Students)
-                .Where(r => r.Students.All(s => s.Pet != PetType.Cat && s.Pet != PetType.Owl));
-
-            if (house != null)
-                query = query.Where(r => r.House == house);
-            
-            if (onlyWithFreeSpace)
-                query = query.Where(r => r.Students.Count < r.MaxCapacity);
-
-            return await query.ToListAsync();
-        }
     }
 }

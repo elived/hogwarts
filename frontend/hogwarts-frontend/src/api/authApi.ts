@@ -1,4 +1,4 @@
-import type {UserInfo, UserRoleInfo} from "../types.ts";
+import type {UserInfo} from "../types.ts";
 
 import { API_BASE_URL } from "../config/api";
 
@@ -15,19 +15,7 @@ export const fetchAllUsers = async() => {
     return await response.json();
 }
 
-export const getUserByUsername = async (username: string) => {
-    const response = await fetch(`api/Auth/users/${username}`);
-    
-    if (!response.ok) {
-        throw new Error(
-            `Fetch User by username failed: ${response.status} ${response.statusText}`
-        );
-    }
-    
-    const user = await response.json() as UserRoleInfo;
-    return user;
-    
-}
+
 export const loginUser = async (userInfo: UserInfo) => {
     const response = await fetch("api/Auth/login",
         {
