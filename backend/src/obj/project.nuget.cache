@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3Wg87+ZMa0s=",
+  "dgSpecHash": "ZRH+gq3zpdE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\EVedel\\RiderProjects\\hogwarts-houses-1-csharp-elived\\backend\\src\\HogwartsHouses.csproj",
+  "projectFilePath": "C:\\Users\\EVedel\\RiderProjects\\hogwarts\\backend\\src\\HogwartsHouses.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EVedel\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\EVedel\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\10.0.5\\microsoft.aspnetcore.authentication.jwtbearer.10.0.5.nupkg.sha512",
