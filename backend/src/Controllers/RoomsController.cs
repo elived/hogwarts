@@ -71,28 +71,4 @@ public class RoomsController : ControllerBase
         return Ok(deleted);
     }
 
-    [HttpGet("available")]
-    public async Task<IActionResult> GetAvailableRooms()
-    {
-        var rooms = await _service.GetAvailableRooms();
-        if (rooms is null) return NotFound("No room available");
-        return Ok(rooms);
-    }
-
-    [HttpGet("rat-owners")]
-    public async Task<IActionResult> GetRatSafeRooms(
-        [FromQuery] bool onlyWithFreeSpace = false,
-        [FromQuery] int? studentId = null,
-        [FromQuery] HouseType? house = null)
-    {
-        if (studentId.HasValue)
-        {
-            var student = await _studentService.GetStudentById(studentId.Value);
-            if (student is null) return NotFound($"Student {studentId} not found");
-            house = student.House;
-        }
-
-        var rooms = await _service.GetRatSafeRooms(house, onlyWithFreeSpace);
-        return Ok(rooms);
-    }
 }

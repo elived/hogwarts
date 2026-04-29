@@ -29,26 +29,6 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok(users);
     }
     
-    [HttpGet("user/{username}")]
-    [AllowAnonymous]
-    public async Task<ActionResult> GetUserByUsername(string username)
-    {
-        var user = await authService.GetUserByUsernameAsync(username);
-        if (user is null)            
-            return NotFound("User not found"); 
-        return Ok(user);
-    }
-
-    [HttpPost("register")]
-    [AllowAnonymous]
-    public async Task<ActionResult<User>> Register(UserDto request)
-    {
-        var user = await authService.RegisterAsync(request);
-        if (user is null)
-            return BadRequest("Username already taken");
-
-        return Ok(user);
-    }
 
     [HttpPost("login")]
     [AllowAnonymous]
@@ -61,23 +41,28 @@ public class AuthController(IAuthService authService) : ControllerBase
 
         return Ok(token);
     }
-
-    [HttpDelete("user/{username}")]
-    //[Authorize]
-    public async Task<IActionResult> DeleteAccount(string username)
+    
+    [HttpPost("register")]
+    [AllowAnonymous]
+    public async Task<ActionResult<User>> Register(UserDto request)
     {
-        try
-        {
-            var result = await authService.DeleteUserAsync(username);
-            if (!result)
-                return NotFound("User not found");
+        var user = await authService.RegisterAsync(request);
+        if (user is null)
+            return BadRequest("Username already taken");
 
-            return Ok("User deleted");
-        }
-        catch (InvalidOperationException ex)
+        return Ok(user);
+    }
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("find-role")]
+    public async Task<IActionResult> Me()
+    {
+        return Ok(new
         {
-            return BadRequest(ex.Message);
-        }
+            Authenicated = User.Identity!.IsAuthenticated,
+            Username = User.Identity.Name,
+            Role = User.FindFirst(ClaimTypes.Role)?.Value
+        });
     }
     
     [HttpPatch("{username}/role")]
@@ -102,16 +87,22 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok($"role updated -> {role}");
     }
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("find-role")]
-    public async Task<IActionResult> Me()
+    [HttpDelete("user/{username}")]
+    //[Authorize]
+    public async Task<IActionResult> DeleteAccount(string username)
     {
-        return Ok(new
+        try
         {
-            Authenicated = User.Identity!.IsAuthenticated,
-            Username = User.Identity.Name,
-            Role = User.FindFirst(ClaimTypes.Role)?.Value
-        });
+            var result = await authService.DeleteUserAsync(username);
+            if (!result)
+                return NotFound("User not found");
+
+            return Ok("User deleted");
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
     
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
