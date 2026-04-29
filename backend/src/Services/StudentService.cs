@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using HogwartsHouses.DAL;
 using HogwartsHouses.Data;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace HogwartsHouses.Services;

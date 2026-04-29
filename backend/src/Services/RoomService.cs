@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HogwartsHouses.DAL;
 using HogwartsHouses.Data;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;

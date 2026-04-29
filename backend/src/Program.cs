@@ -1,6 +1,5 @@
 using System;
 using System.Security.Claims;
-using HogwartsHouses.DAL;
 using HogwartsHouses.Data;
 using HogwartsHouses.Models;
 using HogwartsHouses.Services;
@@ -136,11 +135,11 @@ namespace HogwartsHouses
             });
 
 
-            builder.Services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
+            //builder.Services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             
-            builder.Services.AddSingleton<IStudentRepository<Student>, StudentRepository>();
+          
             builder.Services.AddScoped<IStudentService, StudentService>();
             
             var app = builder.Build();
