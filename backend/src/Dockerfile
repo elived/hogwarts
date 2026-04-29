@@ -11,4 +11,4 @@ WORKDIR /app
 COPY --from=build /app/out .
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
-CMD ["dotnet", "Hogwarts.Api.dll"]
+CMD ["dotnet", "HogwartsHouses.dll"]
