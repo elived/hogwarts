@@ -37,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         location.pathname !== '/admin';
     
     return (
-        <div className="app-layout">
+        <div >
             <nav className="navbar">
                 <ul className="navbar-list">
                     {visibleLinks.map((link, index) => (
@@ -53,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
                         </li>
                     ))}
                     {showBackButton && (
-                        <button className="nav-button nav-back" onClick={() => navigator(-1)}>
+                        <button className="nav-button" onClick={() => navigator(-1)}>
                             Back
                         </button>
                     )}

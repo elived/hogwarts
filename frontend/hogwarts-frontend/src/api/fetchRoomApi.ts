@@ -51,14 +51,6 @@ export async function fetchRoomById(id: number): Promise<Room> {
     };
 }
 
-export async function deleteRoom(id: number): Promise<void> {
-    const authReq = CreateAuthRequest({ method: "DELETE" });
-    if (!authReq) throw new Error("Missing JWT token!");
-
-    const response = await fetch(`${API_BASE_URL}/api/Rooms/${id}`, authReq);
-    if (!response.ok) throw new Error(await response.text());
-}
-
 export async function createRoom(room: Omit<Room, "Id">): Promise<Room> {
     const response = await fetch("/api/Rooms", {
         method: "POST",
@@ -94,4 +86,12 @@ export async function createRoom(room: Omit<Room, "Id">): Promise<Room> {
                 RoomId: s.roomId
             }))
     };
+}
+
+export async function deleteRoom(id: number): Promise<void> {
+    const authReq = CreateAuthRequest({ method: "DELETE" });
+    if (!authReq) throw new Error("Missing JWT token!");
+
+    const response = await fetch(`${API_BASE_URL}/api/Rooms/${id}`, authReq);
+    if (!response.ok) throw new Error(await response.text());
 }

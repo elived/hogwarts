@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using HogwartsHouses.DAL;
 using HogwartsHouses.Data;
 using HogwartsHouses.Models;
 using HogwartsHouses.Models.Types;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace HogwartsHouses.Services;
@@ -100,46 +98,6 @@ public class StudentService : IStudentService
         return student;
     }
 
-    public async Task<Student> AssignStudentToRoom(int studentId, int roomId)
-    {
-        
-        var student = await _db.Students
-            .Include(s => s.Room)
-            .FirstOrDefaultAsync(s => s.Id == studentId);
-
-        if (student == null)
-            throw new Exception($"Student with id {studentId} does not exist");
-
-        var room = await _db.Rooms
-            .Include(r => r.Students)  // ✅ Needed for capacity + assignments
-            .FirstOrDefaultAsync(r => r.Id == roomId);
-
-        if (room == null)
-            throw new Exception($"Room with id {roomId} does not exist");
-
-        if (student.House != room.House) throw new InvalidOperationException($"House mismatch: A {student.House} student cannot be assigned to {room.House} room");
-
-        if (room.Students.Count >= room.MaxCapacity)
-            throw new InvalidOperationException($"Room {room.Id} is full");
-        
-        // Remove from previous room if necessary
-        if (student.Room != null && student.RoomId != room.Id)
-        {
-            var previousRoom = await _db.Rooms
-                .Include(r => r.Students)
-                .FirstOrDefaultAsync(r => r.Id == student.RoomId);
-
-            previousRoom.Students.Remove(student);
-        }
-
-        // Link both sides
-        student.RoomId = room.Id;
-
-        if (!room.Students.Any(s => s.Id == student.Id))
-            room.Students.Add(student);
-        
-        return student;
-    }
 
     public async Task<Student> BecomeStudentAsync(string username, CreateStudentRequest dto)
     {
@@ -181,7 +139,6 @@ public class StudentService : IStudentService
     
     private HouseType CalculateHouse(List<SortingAnswerHouse> answers)
     {
-        // simple logic for now
         return answers
             .GroupBy(a => a.House)
             .OrderByDescending(g => g.Count())

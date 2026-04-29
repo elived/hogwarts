@@ -24,12 +24,12 @@ export function RegisterPage() {
     }
 
     return (
-        <div className="form-page-container">
-            <div className="form-wrapper">
+        <div>
+            <div>
                 <AuthForm onError={handleError} onSuccess={handleSubmit} submitLabel="Register" isRegister={true}>
                     <div>
                         <p><br/></p>
-                        <span className="form-toggle-text">Already have an account?<br/></span>
+                        <span>Already have an account?<br/></span>
                         <button
                             type="button"
                             className="auth-form-button"

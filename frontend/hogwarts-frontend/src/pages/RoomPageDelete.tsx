@@ -37,7 +37,7 @@ function RoomsPageDelete() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <main className="main">
+        <main>
             <h2>All the Rooms of Hogwarts</h2>
             <button
                 className="button-style" onClick={() => {navigate('/admin/create-room')}}>

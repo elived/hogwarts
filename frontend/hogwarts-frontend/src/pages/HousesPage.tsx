@@ -9,7 +9,7 @@ function HousesPage() {
     
     return(
         <>
-            <main className="main">
+            <main>
                 <section className="houses">
                     <h2>The Houses of Hogwarts</h2>
                     <p>Click the cards to learn more!</p>
