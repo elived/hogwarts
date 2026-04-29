@@ -63,7 +63,7 @@ function UserPage() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <main className="main">
+        <main>
             <h2>All Users</h2>
             <SearchBar<UserRoleInfo>
                 onSearch={searchUser}

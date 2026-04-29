@@ -39,7 +39,6 @@ const App: React.FC = () => {
        
     ];
     
-  //const [house, setHouse] = useState<string | null>(null)
   
   return(
 
@@ -47,7 +46,7 @@ const App: React.FC = () => {
           <Header />
 
           <Routes>
-              {/* ✅ PROTECTED ROUTES */}
+              {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                   <Route element={<ProtectedLayout links={navLinks} />}>
                       <Route path="/" element={<AboutPage />} />
@@ -72,7 +71,7 @@ const App: React.FC = () => {
                       </Route>
               </Route>
 
-              {/* ✅ PUBLIC ROUTES */}
+              {/* PUBLIC ROUTES */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="*" element={<NotFoundPage />} />

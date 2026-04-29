@@ -33,17 +33,15 @@ function RoomDetailsPage() {
     }, [id]);
 
 
-
     if (loading) return <p>Loading room…</p>;
     if (error) return <p>Error: {error}</p>;
     if (!room) return <p>Room not found</p>;
 
-    //const houseName = houseLabels[room.House];
     const occupants = room.Students.length;
     const remainingCapacity = room.MaxCapacity - occupants;
     
     return (
-        <main className="main">
+        <main>
             <img src={houseIcons[room.House as HouseType]} alt={houseLabels[room.House as HouseType]} className="custom-list-img"/>
 
             <h2>{room.Name}</h2>

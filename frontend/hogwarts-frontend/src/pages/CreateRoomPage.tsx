@@ -54,7 +54,7 @@ export default function CreateRoomPage() {
     }
     
     return (
-        <main className="main">
+        <main>
             <h1>Create new room</h1>
             
             <form onSubmit={submit} className="form">
