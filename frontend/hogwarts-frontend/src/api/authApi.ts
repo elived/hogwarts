@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../config/api";
 
 
 export const fetchAllUsers = async() => {
-    const response = await fetch(("api/Auth/users"));
+    const response = await fetch(`${API_BASE_URL}/api/Auth/users`);
     
     if (!response.ok) {
         throw new Error(
@@ -17,7 +17,7 @@ export const fetchAllUsers = async() => {
 
 
 export const loginUser = async (userInfo: UserInfo) => {
-    const response = await fetch("api/Auth/login",
+    const response = await fetch(`${API_BASE_URL}/api/Auth/login`,
         {
             method: "POST",
             headers: {
@@ -54,7 +54,7 @@ export const checkAuthorized = async () => {
     if (!authRequest) {
         return false;
     }
-    const response = await fetch("api/Auth/find-role", authRequest);
+    const response = await fetch(`${API_BASE_URL}/api/Auth/find-role`, authRequest);
     return response.ok;
 }
 
@@ -88,10 +88,14 @@ export const CreateAuthRequest = (init: RequestInit = {}): RequestInit | null =>
     if (!token) {
         return null;
     }
+
     init.headers = {
-        "Authorization": `Bearer ${token}`
-    }
+        ...(init.headers || {}),
+        Authorization: `Bearer ${token}`,
+    };
+
     return init;
+
 }
 
 export const logoutUser = async () => {

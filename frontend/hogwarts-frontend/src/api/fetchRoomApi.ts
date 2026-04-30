@@ -4,7 +4,7 @@ import {API_BASE_URL} from "../config/api.ts";
 import {CreateAuthRequest} from "./authApi.ts";
 
 export async function fetchRooms(): Promise<Room[]> {
-    const response = await fetch("/api/Rooms");
+    const response = await fetch(`${API_BASE_URL}/api/Rooms`);
 
     if (!response.ok) {
         throw new Error(
@@ -24,7 +24,7 @@ export async function fetchRooms(): Promise<Room[]> {
 }
 
 export async function fetchRoomById(id: number): Promise<Room> {
-    const response = await fetch(`/api/Rooms/${id}`);
+    const response = await fetch(`${API_BASE_URL}/api/Rooms/${id}`);
 
     if (!response.ok) {
         throw new Error(
@@ -52,7 +52,7 @@ export async function fetchRoomById(id: number): Promise<Room> {
 }
 
 export async function createRoom(room: Omit<Room, "Id">): Promise<Room> {
-    const response = await fetch("/api/Rooms", {
+    const response = await fetch(`${API_BASE_URL}/api/Rooms`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
