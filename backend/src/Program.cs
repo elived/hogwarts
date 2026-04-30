@@ -22,7 +22,7 @@ namespace HogwartsHouses
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -151,8 +151,59 @@ namespace HogwartsHouses
             
             using (var scope = app.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.Migrate();
+                var services = scope.ServiceProvider;
+
+                var db = services.GetRequiredService<AppDbContext>();
+                await db.Database.MigrateAsync();
+
+                var userManager = services.GetRequiredService<UserManager<User>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                // Ensure roles exist
+                if (!await roleManager.RoleExistsAsync("Admin"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+                }
+
+                if (!await roleManager.RoleExistsAsync("User"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole("User"));
+                }
+
+                // Seed permanent admin user
+                var adminEmail = "admin@hogwarts.com";
+                var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+                if (adminUser == null)
+                {
+                    var admin = new User
+                    {
+                        UserName = "admin",
+                        Email = adminEmail,
+                        EmailConfirmed = true,
+                        Role = "Admin"
+                    };
+
+                    var result = await userManager.CreateAsync(admin, "Admin123!");
+
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(admin, "Admin");
+                        Console.WriteLine("Admin user created");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to create admin user:");
+                        foreach (var error in result.Errors)
+                        {
+                            Console.WriteLine($"- {error.Description}");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Admin user already exists");
+                }
             }
 
             if (app.Environment.IsDevelopment())
