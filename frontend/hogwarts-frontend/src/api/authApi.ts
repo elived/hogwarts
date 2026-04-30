@@ -88,10 +88,14 @@ export const CreateAuthRequest = (init: RequestInit = {}): RequestInit | null =>
     if (!token) {
         return null;
     }
+
     init.headers = {
-        "Authorization": `Bearer ${token}`
-    }
+        ...(init.headers || {}),
+        Authorization: `Bearer ${token}`,
+    };
+
     return init;
+
 }
 
 export const logoutUser = async () => {

@@ -58,10 +58,12 @@ export async function becomeStudent(
     if (!authReq) throw new Error("Missing JWT token!");
 
     authReq.method = "POST";
-    authReq.body = new Blob(
-        [JSON.stringify(payload)],
-        { type: "application/json" }
-    );
+    authReq.headers = {
+        ...(authReq.headers || {}),
+        "Content-Type": "application/json",
+    };
+    authReq.body = JSON.stringify(payload);
+
 
 
     const response = await fetch(

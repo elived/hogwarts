@@ -124,12 +124,16 @@ namespace HogwartsHouses
                 });
             
             
+            
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("_myAllowSpecificOrigins", policy =>
                 {
                     policy
-                        .WithOrigins("http://localhost:5173")
+                        .WithOrigins(
+                            "http://localhost:5173",
+                            "https://hogwarts-ten-theta.vercel.app"
+                        )
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
@@ -137,7 +141,6 @@ namespace HogwartsHouses
             });
 
 
-            //builder.Services.AddSingleton<IRepository<Room>, InMemoryRoomRepository>();
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             
