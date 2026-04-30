@@ -16,7 +16,7 @@
 .custom-list-img {
     width: 50px;
     height: 50px;
-    flex-shrink: 0; /* important in flex layouts */
+    flex-shrink: 0;
     object-fit: contain
 
 }
@@ -28,4 +28,18 @@
     justify-items: center;
 }
 
+.student-list {
+    list-style: none;       
+    padding: 0;              
+    margin: 0.5rem auto;    
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;     
+    gap: 0.4rem;
+}
+
+.student-list li {
+    text-align: center;      
+}
 
