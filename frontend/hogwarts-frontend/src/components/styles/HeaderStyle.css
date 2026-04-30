@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 350px;
 
-    background-image: url("./images/hogwarts-banner.jpg");
+    background-image: url("/images/hogwarts-banner.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

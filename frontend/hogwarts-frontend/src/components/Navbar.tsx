@@ -33,6 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         location.pathname !== '/students' &&
         location.pathname !== '/rooms' &&
         location.pathname !== '/login' &&
+        location.pathname !== '/profile' &&
         location.pathname !== '/register' &&
         location.pathname !== '/admin';
     
