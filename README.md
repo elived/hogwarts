@@ -15,7 +15,7 @@ and a managed database.
 
 **Backend**
 - ASP .NET
-- C#
+- Entity Framework
 
 **Database**
 - PostgreSQL (hosted on Render)
