@@ -35,7 +35,9 @@ create a .env file:
 ```bash
 DATABASE_URL=your_database_url_here
 PORT=5000
-
+```
+Then run this in the terminal.
+```bash
 npm run dev
 ```
 ## Features
