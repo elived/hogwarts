@@ -259,6 +259,7 @@ export default function BecomeStudentPage() {
                 can choose between cat, owl, rat or no pet at all. </p>
             <select
                 value={pet}
+                className="drop-down"
                 onChange={e => setPet(Number(e.target.value))}
             >
                 <option className="drop-down-option" value={PetType.None}>None</option>
