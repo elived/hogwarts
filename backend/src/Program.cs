@@ -31,7 +31,10 @@ namespace HogwartsHouses
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
-
+            
+            var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+            Console.WriteLine($"CONNECTION STRING = '{cs}'");
+            
             builder.Services.AddDbContext<AppDbContext>(options => 
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             
