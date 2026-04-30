@@ -3,7 +3,7 @@ import {CreateAuthRequest} from "./authApi.ts";
 import {API_BASE_URL} from "../config/api.ts";
 
 export async function fetchStudents(): Promise<Student[]> {
-    const response = await fetch("/api/Student");
+    const response = await fetch(`${API_BASE_URL}/api/Student`);
 
     if (!response.ok) {
         throw new Error(
@@ -24,7 +24,7 @@ export async function fetchStudents(): Promise<Student[]> {
 }
 
 export async function fetchStudentById(id: number): Promise<Student> {
-    const response = await fetch(`/api/Student/${id}`);
+    const response = await fetch(`${API_BASE_URL}/api/Student/${id}`);
 
     if (!response.ok) {
         throw new Error(
