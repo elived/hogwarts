@@ -18,7 +18,7 @@ export const Card = ({house, onClick}: HousesPageProps) => {
             <div className="room">
                 <img src={imageUrl} alt={`${name} crest`} className="image-position" />
                 <div>
-                    <h3>{name}</h3>
+                    <h3 className="card-title">{name}</h3>
                 </div>
             </div>
         </button>        
